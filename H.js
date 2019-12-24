@@ -27,15 +27,15 @@ module.exports.md5 = (str) => crypto.createHash('md5').update(str, 'utf8').diges
 module.exports.sha1 = (str) => crypto.createHash('sha1').update(str, 'utf8').digest('hex');
 module.exports.sha256 = (str) => crypto.createHash('sha256').update(str, 'utf8').digest('hex');
 
-module.exports.encrypt = (text, key, iv, algo='aes-256-cbc', format='hex') => {
+module.exports.encrypt = (data, key, iv, algo='aes-256-cbc', format='hex') => {
 	let cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(key, 'hex'), iv);
-	let encrypted = cipher.update(text);
+	let encrypted = cipher.update(data);
 	encrypted = Buffer.concat([encrypted, cipher.final()]);
 	return encrypted.toString(format);
 }
 
 module.exports.decrypt = (data, key, iv, algo='aes-256-cbc', format='hex') => {
-	let encryptedText = Buffer.from(text, format);
+	let encryptedText = Buffer.from(data, format);
 	let decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(key, 'hex'), iv);
 	let decrypted = decipher.update(encryptedText);
 	decrypted = Buffer.concat([decrypted, decipher.final()]);
