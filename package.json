@@ -1,6 +1,6 @@
 {
   "name": "upperh",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Collection of helper functions to make starting a nodeJS project faster.",
   "main": "H.js",
   "scripts": {
@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/ybouane/upperH/issues"
   },
-  "homepage": "https://github.com/ybouane/upperH#readme"
+  "homepage": "https://github.com/ybouane/upperH#readme",
+  "dependencies": {
+    "request": "^2.88.0"
+  }
 }
