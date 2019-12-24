@@ -3,6 +3,7 @@ const util = require('util');
 const readline = require('readline');
 const stream = require('stream');
 const request = require('request');
+const crypto = require('crypto');
 const child_process = require('child_process');
 
 
