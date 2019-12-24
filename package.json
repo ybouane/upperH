@@ -1,0 +1,27 @@
+{
+  "name": "upperh",
+  "version": "1.0.0",
+  "description": "Collection of helper functions to make starting a nodeJS project faster.",
+  "main": "H.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ybouane/upperH.git"
+  },
+  "keywords": [
+    "helper",
+    "tools",
+    "start",
+    "nodejs",
+    "node",
+    "require"
+  ],
+  "author": "ybouane",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ybouane/upperH/issues"
+  },
+  "homepage": "https://github.com/ybouane/upperH#readme"
+}
