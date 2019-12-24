@@ -6,13 +6,25 @@ const request = require('request');
 const child_process = require('child_process');
 
 
+
+// File / system
 module.exports.readFile = util.promisify(fs.readFile);
 module.exports.readDir = util.promisify(fs.readdir);
 module.exports.writeFile = util.promisify(fs.writeFile);
 
 module.exports.exec = util.promisify(child_process.exec);
 
+
+// Time
 module.exports.delay = (time) => new Promise(function(resolve, reject) {setTimeout(resolve, time);});
+module.exports.timestampMs = () => +new Date();
+module.exports.timestamp = () => Math.round(+new Date()/1000);
+
+
+// Encryption
+module.exports.md5 = (str) => crypto.createHash('md5').update(str, 'utf8').digest('hex');
+module.exports.sha1 = (str) => crypto.createHash('sha1').update(str, 'utf8').digest('hex');
+module.exports.sha256 = (str) => crypto.createHash('sha256').update(str, 'utf8').digest('hex');
 
 module.exports.encrypt = (text, key, iv, algo='aes-256-cbc', format='hex') => {
 	let cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(key, 'hex'), iv);
@@ -30,6 +42,7 @@ module.exports.decrypt = (data, key, iv, algo='aes-256-cbc', format='hex') => {
 }
 
 
+// CLI input
 module.exports.input = async (q, muted=false) => {
 	const rl = readline.createInterface({
 		input	: process.stdin,
@@ -53,6 +66,8 @@ module.exports.waitForKey = async (q='') => {
 };
 
 
+
+// HTTP Requests
 module.exports.httpRequest = async (method, url, payload={}, headers={}, extras={}) => {
 	return new Promise(async (resolve, reject) => {
 		request({
