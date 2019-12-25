@@ -9,7 +9,8 @@ const child_process = require('child_process');
 
 
 // File / system
-module.exports.readFile = util.promisify(fs.readFile);
+module.exports.readFile = async () => util.promisify(fs.readFile)(...arguments).toString();
+module.exports.readFileBuff = util.promisify(fs.readFile);
 module.exports.readDir = util.promisify(fs.readdir);
 module.exports.writeFile = util.promisify(fs.writeFile);
 
