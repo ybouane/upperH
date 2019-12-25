@@ -67,6 +67,25 @@ module.exports.waitForKey = async (q='') => {
 	return await input(q, true);
 };
 
+var keyPressCallbacks = [];
+module.exports.onKeypress = (cb) => {
+	if(keyPressCallbacks.length==0) { // Init
+		readline.emitKeypressEvents(process.stdin);
+		process.stdin.setRawMode(true);
+		process.stdin.on('keypress', (key, data) => {
+			if(data.ctrl && data.name=='c') {
+				process.exit();
+				return;
+			}
+			for(let cb of keyPressCallbacks)
+			cb(key, data);
+		});
+	}
+	keyPressCallbacks.push(cb);
+};
+
+
+
 
 
 // HTTP Requests
