@@ -1,6 +1,6 @@
 {
   "name": "upperh",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Collection of helper functions to make starting a nodeJS project faster.",
   "main": "H.js",
   "scripts": {
