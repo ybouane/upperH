@@ -1,10 +1,10 @@
 {
   "name": "upperh",
-  "version": "1.0.11",
+  "version": "1.1.0",
   "description": "Collection of helper functions to make starting a nodeJS project faster.",
   "main": "H.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "docs": "documentation readme H.js --section=\"Helper functions\""
   },
   "repository": {
     "type": "git",
@@ -25,6 +25,8 @@
   },
   "homepage": "https://github.com/ybouane/upperH#readme",
   "dependencies": {
+    "nunjucks": "^3.2.0",
+    "qs": "^6.9.1",
     "request": "^2.88.0"
   }
 }
