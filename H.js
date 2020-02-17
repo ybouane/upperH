@@ -433,9 +433,6 @@ H.httpRequest = async function(method, url, payload={}, headers={}, extras={}, f
 			getPayload = '';
 	}
 	try {
-		console.log(url);
-		console.log(url+getPayload);
-		console.log(arguments);
 		var response = await fetch(url+getPayload, {
 			method	: method,
 			...(method=='GET'?{}:{body : JSON.stringify(payload)}),
