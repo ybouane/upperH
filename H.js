@@ -425,7 +425,7 @@ H.onKeypress = (cb) => {
 * @param {String} [format="json"] Format of the request (json|text|buffer).
 * @returns {Promise<String>} Response body
 */
-H.httpRequest = async (method, url, payload={}, headers={}, extras={}, format='json') => {
+H.httpRequest = async function(method, url, payload={}, headers={}, extras={}, format='json') {
 	var getPayload = '';
 	if(method=='GET') {
 		getPayload = '?'+qs.stringify(payload);
@@ -433,6 +433,9 @@ H.httpRequest = async (method, url, payload={}, headers={}, extras={}, format='j
 			getPayload = '';
 	}
 	try {
+		console.log(url);
+		console.log(url+getPayload);
+		console.log(arguments);
 		var response = await fetch(url+getPayload, {
 			method	: method,
 			...(method=='GET'?{}:{body : JSON.stringify(payload)}),
@@ -471,7 +474,7 @@ H.httpRequest = async (method, url, payload={}, headers={}, extras={}, format='j
 * @param {String} [format="json"] Format of the request (json|text|buffer).
 * @returns {Promise<String>} Response body
 */
-H.httpGet = async () => H.httpRequest('GET', ...arguments);
+H.httpGet = async function(){return await H.httpRequest('GET', ...arguments);};
 /**
 * Requests a POST HTTP endpoint
 * @param {String} url HTTP endpoint
@@ -481,7 +484,7 @@ H.httpGet = async () => H.httpRequest('GET', ...arguments);
 * @param {String} [format="json"] Format of the request (json|text|buffer).
 * @returns {Promise<String>} Response body
 */
-H.httpPost = async () => H.httpRequest('POST', ...arguments);
+H.httpPost = async function(){return await H.httpRequest('POST', ...arguments);};
 /**
 * Requests a PUT HTTP endpoint
 * @param {String} url HTTP endpoint
@@ -491,7 +494,7 @@ H.httpPost = async () => H.httpRequest('POST', ...arguments);
 * @param {String} [format="json"] Format of the request (json|text|buffer).
 * @returns {Promise<String>} Response body
 */
-H.httpPut = async () => H.httpRequest('PUT', ...arguments);
+H.httpPut = async function(){return await H.httpRequest('PUT', ...arguments);};
 /**
 * Requests a DELETE HTTP endpoint
 * @param {String} url HTTP endpoint
@@ -501,7 +504,7 @@ H.httpPut = async () => H.httpRequest('PUT', ...arguments);
 * @param {String} [format="json"] Format of the request (json|text|buffer).
 * @returns {Promise<String>} Response body
 */
-H.httpDelete = async () => H.httpRequest('DELETE', ...arguments);
+H.httpDelete = async function(){return await H.httpRequest('DELETE', ...arguments);};
 
 
 // HTTP Server
