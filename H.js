@@ -3,7 +3,8 @@ const qs = require('qs');
 const util = require('util');
 const readline = require('readline');
 const stream = require('stream');
-const request = require('request');
+//const request = require('request');
+const fetch = require('node-fetch');
 const http = require('http');
 const crypto = require('crypto');
 const child_process = require('child_process');
@@ -418,41 +419,56 @@ H.onKeypress = (cb) => {
 * Requests an HTTP endpoint
 * @param {String} method Method to use (GET|POST|PUT|DELETE|HEAD)
 * @param {String} url HTTP endpoint
-* @param {Object} payload Payload to inject (will be converted to query string in case of GET request)
+* @param {Object} payload Payload to inject (will be converted to query string in case of GET request otherwise, the payload is sent as a JSON body)
 * @param {Object} headers Headers to inject
-* @param {Object} extras extra options for request (same as request library)
+* @param {Object} extras extra options for the request (same as fetch API options)
+* @param {String} [format="json"] Format of the request (json|text|buffer).
 * @returns {Promise<String>} Response body
 */
-H.httpRequest = async (method, url, payload={}, headers={}, extras={}) => {
-	return new Promise(async (resolve, reject) => {
-		request({
-				url		: url,
-				method	: 'GET',
-				...(method=='GET'?
-					{qs : payload}:
-					{body : payload}
-				),
-				json	: true,
-				headers	: headers,
-				...extras
-			}, (error, response, body) => {
-			if(error)
-				reject(error);
-			else if(!response)
-				reject('No response');
-			else if (response.statusCode!=200)
-				reject('Error: Status code='+response.statusCode);
-			else
-				resolve(body);
+H.httpRequest = async (method, url, payload={}, headers={}, extras={}, format='json') => {
+	var getPayload = '';
+	if(method=='GET') {
+		getPayload = '?'+qs.stringify(payload);
+		if(getPayload=='?')
+			getPayload = '';
+	}
+	try {
+		var response = await fetch(url+getPayload, {
+			method	: method,
+			...(method=='GET'?{}:{body : JSON.stringify(payload)}),
+			headers	: {
+				...(format=='json'?{'Content-Type'	: 'application/json',
+				'Accept'		: 'application/json',}:{}),
+				...headers
+			},
 		});
-	});
+		if(response.ok) {
+			try {
+				if(format=='json')
+					return await response.json(); // Expect all responses to be in JSON format
+				else if (format=='text')
+					return await response.text();
+				return await response.buffer();
+			} catch(e) {
+				throw new Error('The server returned an invalid response.');
+			}
+		} else {
+			if(response.status != 200)
+				throw new H.Error('Error '+response.status+(response.statusText?': '+response.statusText:''));
+			else
+				throw new H.Error('A network error occured.');
+		}
+	} catch(e) {
+		throw new H.Error('Could not reach server. '+e.toString());
+	}
 };
 /**
 * Requests a GET HTTP endpoint
 * @param {String} url HTTP endpoint
 * @param {Object} payload Payload to inject will be converted to query string
 * @param {Object} headers Headers to inject
-* @param {Object} extras extra options for request (same as request library)
+* @param {Object} extras extra options for request (same as fetch API options)
+* @param {String} [format="json"] Format of the request (json|text|buffer).
 * @returns {Promise<String>} Response body
 */
 H.httpGet = async () => H.httpRequest('GET', ...arguments);
@@ -461,7 +477,8 @@ H.httpGet = async () => H.httpRequest('GET', ...arguments);
 * @param {String} url HTTP endpoint
 * @param {Object} payload Payload to inject
 * @param {Object} headers Headers to inject
-* @param {Object} extras extra options for request (same as request library)
+* @param {Object} extras extra options for request (same as fetch API options)
+* @param {String} [format="json"] Format of the request (json|text|buffer).
 * @returns {Promise<String>} Response body
 */
 H.httpPost = async () => H.httpRequest('POST', ...arguments);
@@ -470,7 +487,8 @@ H.httpPost = async () => H.httpRequest('POST', ...arguments);
 * @param {String} url HTTP endpoint
 * @param {Object} payload Payload to inject
 * @param {Object} headers Headers to inject
-* @param {Object} extras extra options for request (same as request library)
+* @param {Object} extras extra options for request (same as fetch API options)
+* @param {String} [format="json"] Format of the request (json|text|buffer).
 * @returns {Promise<String>} Response body
 */
 H.httpPut = async () => H.httpRequest('PUT', ...arguments);
@@ -479,7 +497,8 @@ H.httpPut = async () => H.httpRequest('PUT', ...arguments);
 * @param {String} url HTTP endpoint
 * @param {Object} payload Payload to inject
 * @param {Object} headers Headers to inject
-* @param {Object} extras extra options for request (same as request library)
+* @param {Object} extras extra options for request (same as fetch API options)
+* @param {String} [format="json"] Format of the request (json|text|buffer).
 * @returns {Promise<String>} Response body
 */
 H.httpDelete = async () => H.httpRequest('DELETE', ...arguments);
