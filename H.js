@@ -422,10 +422,10 @@ H.onKeypress = (cb) => {
 * @param {Object} payload Payload to inject (will be converted to query string in case of GET request otherwise, the payload is sent as a JSON body)
 * @param {Object} headers Headers to inject
 * @param {Object} extras extra options for the request (same as fetch API options)
-* @param {String} [format="json"] Format of the request (json|text|buffer).
+* @param {String} [format="json"] Format of the request (json|form|buffer).
 * @returns {Promise<String>} Response body
 */
-H.httpRequest = async function(method, url, payload={}, headers={}, extras={}, format='json') {
+H.httpRequest = async (method, url, payload={}, headers={}, extras={}, format='json') => {
 	var getPayload = '';
 	if(method=='GET') {
 		getPayload = '?'+qs.stringify(payload);
@@ -433,22 +433,34 @@ H.httpRequest = async function(method, url, payload={}, headers={}, extras={}, f
 			getPayload = '';
 	}
 	try {
+		var body = undefined;
+		if(method!='GET') {
+			if(format=='json')
+				body = JSON.stringify(payload);
+			else if(format=='form') {
+				body = new URLSearchParams(qs.stringify(payload));
+			}
+
+		}
+		if(format=='json') {
+			if(!headers['Content-Type'] && !headers['content-type'])
+				headers['Content-Type'] = 'application/json';
+			if(!headers['Accept'] && !headers['accept'])
+				headers['Accept'] = 'application/json';
+		}
 		var response = await fetch(url+getPayload, {
-			method	: method,
-			...(method=='GET'?{}:{body : JSON.stringify(payload)}),
-			headers	: {
-				...(format=='json'?{'Content-Type'	: 'application/json',
-				'Accept'		: 'application/json',}:{}),
-				...headers
-			},
+			method,
+			body,
+			headers,
 		});
 		if(response.ok) {
 			try {
-				if(format=='json')
+				let contentType = (response.headers.get('content-type') || '').split(';').shift();
+				if(format=='json' || contentType=='application/json')
 					return await response.json(); // Expect all responses to be in JSON format
-				else if (format=='text')
-					return await response.text();
-				return await response.buffer();
+				else if (format=='buffer')
+					return await response.buffer();
+				return await response.text();
 			} catch(e) {
 				throw new Error('The server returned an invalid response.');
 			}
@@ -468,7 +480,7 @@ H.httpRequest = async function(method, url, payload={}, headers={}, extras={}, f
 * @param {Object} payload Payload to inject will be converted to query string
 * @param {Object} headers Headers to inject
 * @param {Object} extras extra options for request (same as fetch API options)
-* @param {String} [format="json"] Format of the request (json|text|buffer).
+* @param {String} [format="json"] Format of the request (json|form|buffer).
 * @returns {Promise<String>} Response body
 */
 H.httpGet = async function(){return await H.httpRequest('GET', ...arguments);};
@@ -478,7 +490,7 @@ H.httpGet = async function(){return await H.httpRequest('GET', ...arguments);};
 * @param {Object} payload Payload to inject
 * @param {Object} headers Headers to inject
 * @param {Object} extras extra options for request (same as fetch API options)
-* @param {String} [format="json"] Format of the request (json|text|buffer).
+* @param {String} [format="json"] Format of the request (json|form|buffer).
 * @returns {Promise<String>} Response body
 */
 H.httpPost = async function(){return await H.httpRequest('POST', ...arguments);};
@@ -488,7 +500,7 @@ H.httpPost = async function(){return await H.httpRequest('POST', ...arguments);
 * @param {Object} payload Payload to inject
 * @param {Object} headers Headers to inject
 * @param {Object} extras extra options for request (same as fetch API options)
-* @param {String} [format="json"] Format of the request (json|text|buffer).
+* @param {String} [format="json"] Format of the request (json|form|buffer).
 * @returns {Promise<String>} Response body
 */
 H.httpPut = async function(){return await H.httpRequest('PUT', ...arguments);};
@@ -498,7 +510,7 @@ H.httpPut = async function(){return await H.httpRequest('PUT', ...arguments);};
 * @param {Object} payload Payload to inject
 * @param {Object} headers Headers to inject
 * @param {Object} extras extra options for request (same as fetch API options)
-* @param {String} [format="json"] Format of the request (json|text|buffer).
+* @param {String} [format="json"] Format of the request (json|form|buffer).
 * @returns {Promise<String>} Response body
 */
 H.httpDelete = async function(){return await H.httpRequest('DELETE', ...arguments);};
