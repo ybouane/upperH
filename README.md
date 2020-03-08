@@ -417,7 +417,7 @@ Requests an HTTP endpoint
 -   `headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Headers to inject (optional, default `{}`)
 -   `extras` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** extra options for the request (same as fetch API options) (optional, default `{}`)
 -   `inFormat` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Format of the input request (json|form). (optional, default `"json"`)
--   `outFormat` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Format of the output response (json|text|buffer). (optional, default `"json"`)
+-   `outFormat` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Format of the output response (json|text|buffer|stream). (optional, default `"json"`)
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** Response body
 
@@ -432,7 +432,7 @@ Requests a GET HTTP endpoint
 -   `headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Headers to inject
 -   `extras` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** extra options for request (same as fetch API options)
 -   `inFormat` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Format of the input request (json|form). (optional, default `"json"`)
--   `outFormat` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Format of the output response (json|text|buffer). (optional, default `"json"`)
+-   `outFormat` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Format of the output response (json|text|buffer|stream). (optional, default `"json"`)
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** Response body
 
@@ -447,7 +447,7 @@ Requests a POST HTTP endpoint
 -   `headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Headers to inject
 -   `extras` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** extra options for request (same as fetch API options)
 -   `inFormat` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Format of the input request (json|form). (optional, default `"json"`)
--   `outFormat` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Format of the output response (json|text|buffer). (optional, default `"json"`)
+-   `outFormat` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Format of the output response (json|text|buffer|stream). (optional, default `"json"`)
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** Response body
 
@@ -462,7 +462,7 @@ Requests a PUT HTTP endpoint
 -   `headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Headers to inject
 -   `extras` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** extra options for request (same as fetch API options)
 -   `inFormat` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Format of the input request (json|form). (optional, default `"json"`)
--   `outFormat` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Format of the output response (json|text|buffer). (optional, default `"json"`)
+-   `outFormat` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Format of the output response (json|text|buffer|stream). (optional, default `"json"`)
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** Response body
 
@@ -477,7 +477,7 @@ Requests a DELETE HTTP endpoint
 -   `headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Headers to inject
 -   `extras` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** extra options for request (same as fetch API options)
 -   `inFormat` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Format of the input request (json|form). (optional, default `"json"`)
--   `outFormat` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Format of the output response (json|text|buffer). (optional, default `"json"`)
+-   `outFormat` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Format of the output response (json|text|buffer|stream). (optional, default `"json"`)
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** Response body
 

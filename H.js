@@ -423,7 +423,7 @@ H.onKeypress = (cb) => {
 * @param {Object} headers Headers to inject
 * @param {Object} extras extra options for the request (same as fetch API options)
 * @param {String} [inFormat="json"] Format of the input request (json|form).
-* @param {String} [outFormat="json"] Format of the output response (json|text|buffer).
+* @param {String} [outFormat="json"] Format of the output response (json|text|buffer|stream).
 * @returns {Promise<String>} Response body
 */
 H.httpRequest = async (method, url, payload={}, headers={}, extras={}, inFormat='json', outFormat='json') => {
@@ -462,6 +462,8 @@ H.httpRequest = async (method, url, payload={}, headers={}, extras={}, inFormat=
 					return await response.json(); // Expect all responses to be in JSON format
 				else if (outFormat=='buffer')
 					return await response.buffer();
+				else if(outFormat=='stream')
+					return response.body;
 				return await response.text();
 			} catch(e) {
 				rethrow = true;
@@ -487,7 +489,7 @@ H.httpRequest = async (method, url, payload={}, headers={}, extras={}, inFormat=
 * @param {Object} headers Headers to inject
 * @param {Object} extras extra options for request (same as fetch API options)
 * @param {String} [inFormat="json"] Format of the input request (json|form).
-* @param {String} [outFormat="json"] Format of the output response (json|text|buffer).
+* @param {String} [outFormat="json"] Format of the output response (json|text|buffer|stream).
 * @returns {Promise<String>} Response body
 */
 H.httpGet = async function(){return await H.httpRequest('GET', ...arguments);};
@@ -498,7 +500,7 @@ H.httpGet = async function(){return await H.httpRequest('GET', ...arguments);};
 * @param {Object} headers Headers to inject
 * @param {Object} extras extra options for request (same as fetch API options)
 * @param {String} [inFormat="json"] Format of the input request (json|form).
-* @param {String} [outFormat="json"] Format of the output response (json|text|buffer).
+* @param {String} [outFormat="json"] Format of the output response (json|text|buffer|stream).
 * @returns {Promise<String>} Response body
 */
 H.httpPost = async function(){return await H.httpRequest('POST', ...arguments);};
@@ -509,7 +511,7 @@ H.httpPost = async function(){return await H.httpRequest('POST', ...arguments);
 * @param {Object} headers Headers to inject
 * @param {Object} extras extra options for request (same as fetch API options)
 * @param {String} [inFormat="json"] Format of the input request (json|form).
-* @param {String} [outFormat="json"] Format of the output response (json|text|buffer).
+* @param {String} [outFormat="json"] Format of the output response (json|text|buffer|stream).
 * @returns {Promise<String>} Response body
 */
 H.httpPut = async function(){return await H.httpRequest('PUT', ...arguments);};
@@ -520,7 +522,7 @@ H.httpPut = async function(){return await H.httpRequest('PUT', ...arguments);};
 * @param {Object} headers Headers to inject
 * @param {Object} extras extra options for request (same as fetch API options)
 * @param {String} [inFormat="json"] Format of the input request (json|form).
-* @param {String} [outFormat="json"] Format of the output response (json|text|buffer).
+* @param {String} [outFormat="json"] Format of the output response (json|text|buffer|stream).
 * @returns {Promise<String>} Response body
 */
 H.httpDelete = async function(){return await H.httpRequest('DELETE', ...arguments);};
