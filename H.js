@@ -34,6 +34,12 @@ H.readFile = async (...args) => (await util.promisify(fs.readFile)(...args)).toS
 */
 H.readDir = util.promisify(fs.readdir);
 /**
+* Creates a directory
+* @param {String} path Path of the directory
+* @returns {Promise}
+*/
+H.mkdir = util.promisify(fs.mkdir);
+/**
 * Writes a string into a file
 * @param {String} path File path
 * @param {String} content New file content
