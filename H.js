@@ -587,9 +587,9 @@ H.httpServer = (port=80, handlers, options) => {
 				var matched = false;
 				var handlers_ = handlers;
 				if({}.toString.call(handlers) === '[object Function]')
-					handlers_ = handlers(request, response, request.method, data);
+					handlers_ = handlers(request, response, undefined, request.method, data);
 				else if({}.toString.call(handlers) === '[object AsyncFunction]')
-					handlers_ = await handlers(request, response, request.method, data);
+					handlers_ = await handlers(request, response, undefined, request.method, data);
 
 				for(let [path, handler] of Object.entries(handlers_)) {
 					matched = path.indexOf('^')==0 && url.pathname.match(new RegExp(path, options.pathFlags || ''));
