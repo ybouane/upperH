@@ -284,7 +284,7 @@ H.renderFile = async (file, ...args) => {
 */
 H.handlize = (str) => String(str).toLowerCase().replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim().replace(/\s/g, '-');
 /**
-* Helper REGEX expressions
+* Helper regular expressions (RegExp)
 * handle : Valid handle (lowercase letters, numbers, underscores and dashes).
 * email : Valid email address
 */
@@ -292,6 +292,11 @@ H.regexp = {
 	handle	: /^[a-z0-9_-]+$/,
 	email	: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
 };
+/**
+* Escapes a regular expression string (RegExp)
+* s : String to escape
+*/
+H.regexpEscape = s=>s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
 /**
 * Determines if an object has a property. (uses Object.prototype for security)
 * @param {Object} obj Object to check
