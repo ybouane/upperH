@@ -668,4 +668,4 @@ const HMembers = {
 	},
 };
 
-window.H = H;
+module.exports = H;
