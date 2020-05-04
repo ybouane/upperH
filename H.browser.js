@@ -17,7 +17,7 @@ const H = (s) => {
 				s = [document.createElement(RegExp.$1)];
 			else {
 				var container = document.createElement('div');
-				container.innerHTML = html;
+				container.innerHTML = s;
 				s = container.childNodes;
 			}
 		} else
