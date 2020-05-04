@@ -8,9 +8,13 @@ const http = require('http');
 const crypto = require('crypto');
 const child_process = require('child_process');
 const nunjucks = require('nunjucks');
-
-
+/**
+* H helper functions available only for Servers
+* @name HServer
+* @typicalname H
+*/
 const H = {};
+
 module.exports = H;
 
 
@@ -22,55 +26,77 @@ require('./H.common.js')(H);
 // File / system
 /**
 * Reads a local file and returns a buffer
+* @async
+* @memberof HServer
 * @param {String} path File path
 * @returns {Promise<Buffer>} Content of the file as a buffer
+* @name readFileBuff
 */
 H.readFileBuff = util.promisify(fs.readFile);
 /**
 * Reads a local file and returns it content as a string
+* @async
+* @memberof HServer
 * @param {String} path File path
 * @returns {Promise<String>} Content of the file's content as a string
+* @name readFile
 */
 H.readFile = async (...args) => (await util.promisify(fs.readFile)(...args)).toString();
 
 /**
 * Returns the list of files of a directory
+* @async
+* @memberof HServer
 * @param {String} path Path of the directory
 * @returns {Promise<Array>} Directory list
+* @name readDir
 */
 H.readDir = util.promisify(fs.readdir);
 /**
 * Creates a directory
+* @async
+* @memberof HServer
 * @param {String} path Path of the directory
 * @returns {Promise}
+* @name mkdir
 */
 H.mkdir = util.promisify(fs.mkdir);
 /**
 * Writes a string into a file
+* @async
+* @memberof HServer
 * @param {String} path File path
 * @param {String} content New file content
 * @returns {Promise}
+* @name writeFile
 */
 H.writeFile = util.promisify(fs.writeFile);
 /**
 * Reads a local file (synchronously) and returns it content as a string
+* @memberof HServer
 * @param {String} path File path
 * @returns {String} Content of the file's content as a string
+* @name readFileSync
 */
 H.readFileSync = (...args) => fs.readFileSync(...args).toString();
 /**
 * Writes a string into a file (synchronously)
+* @memberof HServer
 * @param {String} path File path
 * @param {String} content New file content
+* @name writeFileSync
 */
 H.writeFileSync = fs.writeFileSync;
 
 
 /**
 * Executes a child process
+* @async
+* @memberof HServer
 * @param {String} command Command to execute
 * @param {Object} [options] Options (see child_process.exec)
 * @returns {Promise<stdout, stderr>} Returns command output (stdout & stderr)
+* @name exec
 */
 H.exec = util.promisify(child_process.exec);
 
@@ -78,7 +104,9 @@ H.exec = util.promisify(child_process.exec);
 var pid = process && process.pid ? process.pid.toString(36) : '';
 /**
 * Returns a random *unique* token
+* @memberof HServer
 * @returns {String} Hexadecimal representation of token
+* @name uniqueToken
 */
 H.uniqueToken = () => crypto.createHash('md5').update(
 	Math.random().toString(36).substr(2) + pid + Date.now().toString(36) + Math.random().toString(36).substr(2)
@@ -87,25 +115,32 @@ H.uniqueToken = () => crypto.createHash('md5').update(
 // Encryption
 /**
 * Returns MD5 hash
+* @memberof HServer
 * @param {String|Buffer} str Input to get hash of
 * @returns {String} MD5 hash of input (in HEX format)
+* @name md
 */
 H.md5 = (str) => crypto.createHash('md5').update(String(str), 'utf8').digest('hex');
 /**
 * Returns SHA1 hash
+* @memberof HServer
 * @param {String|Buffer} str Input to get hash of
 * @returns {String} SHA1 hash of input (in HEX format)
+* @name sha
 */
 H.sha1 = (str) => crypto.createHash('sha1').update(String(str), 'utf8').digest('hex');
 /**
 * Returns SHA256 hash
+* @memberof HServer
 * @param {String|Buffer} str Input to get hash of
 * @returns {String} SHA256 hash of input (in HEX format)
+* @name sha
 */
 H.sha256 = (str) => crypto.createHash('sha256').update(String(str), 'utf8').digest('hex');
 
 /**
 * Encrypts an input string with aes-256-cbc encryption algorithm
+* @memberof HServer
 * @param {String|Buffer} data Input data to encrypt
 * @param {String} key Encryption key in HEX format. Must be a 32byte key for a 256bit algorithm.
 * @param {String} iv IV to use for the encryption in HEX format. For AES, length must be 16
@@ -116,6 +151,7 @@ H.sha256 = (str) => crypto.createHash('sha256').update(String(str), 'utf8').dige
 * const iv = Buffer.from('d65a8b0dcbde0b76cc746faaf0b0beaa', 'hex'); // For AES, length is 16
 * var encryptedData = H.encrypt('My secret data', key, iv);
 * @returns {String|Buffer} Encrypted data
+* @name encrypt
 */
 H.encrypt = (data, key, iv, algo='aes-256-cbc', format='hex') => {
 	let cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(key, 'hex'), iv);
@@ -125,6 +161,7 @@ H.encrypt = (data, key, iv, algo='aes-256-cbc', format='hex') => {
 }
 /**
 * Decrypts an input string with aes-256-cbc encryption algorithm
+* @memberof HServer
 * @param {String|Buffer} data Input data to decrypt
 * @param {String} key Decryption key in HEX format. Must be a 32byte key for a 256bit algorithm.
 * @param {String} iv IV to use for the decryption in HEX format. For AES, length must be 16
@@ -135,6 +172,7 @@ H.encrypt = (data, key, iv, algo='aes-256-cbc', format='hex') => {
 * const iv = Buffer.from('d65a8b0dcbde0b76cc746faaf0b0beaa', 'hex'); // For AES, length is 16
 * var originalData = H.encrypt(encryptedData, key, iv);
 * @returns {String|Buffer} Encrypted data
+* @name decrypt
 */
 H.decrypt = (data, key, iv, algo='aes-256-cbc', format='hex') => {
 	let encryptedText = Buffer.from(data, format);
@@ -147,11 +185,14 @@ H.decrypt = (data, key, iv, algo='aes-256-cbc', format='hex') => {
 
 /**
 * Renders a nunjucks/jinja template string asynchronously
+* @async
+* @memberof HServer
 * @param {String} str Template string (jinja/nunjucks)
 * @param {Object} data Data to inject in template
 * @param {Object} filters Filters functions to allow in template
 * @param {Function} includeCb Callback function that is called whenever the template calls the include instruction.
 * @returns {Promise<String>} Rendered template
+* @name render
 */
 H.render = async (str, data, filters={}, includeCb) => {
 	var loader;
@@ -178,11 +219,14 @@ H.render = async (str, data, filters={}, includeCb) => {
 };
 /**
 * Renders a nunjucks/jinja template file asynchronously
+* @async
+* @memberof HServer
 * @param {String} str Path of template file to render
 * @param {Object} data Data to inject in template
 * @param {Object} filters Filters functions to allow in template
 * @param {Function} includeCb Callback function that is called whenever the template calls the include instruction.
 * @returns {Promise<String>} Rendered template
+* @name renderFile
 */
 H.renderFile = async (file, ...args) => {
 	return await H.render(await H.readFile(file), ...args);
@@ -193,9 +237,12 @@ H.renderFile = async (file, ...args) => {
 // CLI input
 /**
 * Requests input from user in command line interface
+* @async
+* @memberof HServer
 * @param {String} q Question to ask to user during input
 * @param {Boolean} [muted=false] Whether to mute the user input (for passwords)
-* @returns {String} the value the user has entered
+* @returns {Promise<String>} the value the user has entered
+* @name input
 */
 H.input = async (q, muted=false) => {
 	const rl = readline.createInterface({
@@ -217,8 +264,10 @@ H.input = async (q, muted=false) => {
 
 /**
 * Shortcut for H.input but without the muted parameter set to true
+* @memberof HServer
 * @param {String} q Question to ask to user during input
 * @returns {String} the value the user has entered
+* @name waitForKey
 */
 H.waitForKey = async (q='') => {
 	return await input(q, true);
@@ -227,7 +276,9 @@ H.waitForKey = async (q='') => {
 var keyPressCallbacks = [];
 /**
 * Listens to keypresses and calls callback when a key is pressed. Exists when Ctrl+C is typed
+* @memberof HServer
 * @param {Function} cb Callback to function that will listen to key presses
+* @name onKeypress
 */
 H.onKeypress = (cb) => {
 	if(keyPressCallbacks.length==0) { // Init
@@ -249,9 +300,11 @@ H.onKeypress = (cb) => {
 // HTTP Server
 /**
 * Starts an HTTP server and calls specific handlers depending on request url
+* @memberof HServer
 * @param {Number} [post=80] Post to listen to
 * @param {Function|Object} handlers If function, it will run function and use returned Object to select handler. If Object, it will use it directly to select the handler. The handler is selected if it matches the request url. If the handler's key starts with ^, it will be considered as a REGEX.
 * @param {Object} options Extra options. defaultHandler, onError, beforeHandler, pathFlags, afterHandler, autoEnd, maxPostRequestSize,
+* @name httpServer
 */
 H.httpServer = (port=80, handlers, options) => {
 	options = options || {};

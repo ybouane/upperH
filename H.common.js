@@ -1,12 +1,31 @@
 const qs = require('qs');
+/**
+* H helper functions available in both Servers and browsers
+* @name H
+*/
 module.exports = (H) => {
 
+	/**
+	* Checks if variable is an array (equivalent to Array.isArray)
+	* @memberof H
+	* @param {Mixed} variable Variable to check
+	* @returns {Boolean}
+	*/
 	H.isArray = Array.isArray;
+
+	/**
+	* Checks if variable is an object and not an array
+	* @memberof H
+	* @param {Mixed} variable Variable to check
+	* @returns {Boolean}
+	*/
 	H.isObject = obj=>obj===Object(obj) && !H.isArray(obj);
 
 	// Time
 	/**
 	* Wait for a number of miliseconds
+	* @async
+	* @memberof H
 	* @param {Number} time Time in miliseconds
 	* @returns {Promise}
 	*/
@@ -195,6 +214,7 @@ module.exports = (H) => {
 	// HTTP Requests
 	/**
 	* Requests an HTTP endpoint
+	* @async
 	* @param {String} method Method to use (GET|POST|PUT|DELETE|HEAD)
 	* @param {String} url HTTP endpoint
 	* @param {Object} payload Payload to inject (will be converted to query string in case of GET request otherwise, the payload is sent as a JSON body)
@@ -262,6 +282,7 @@ module.exports = (H) => {
 	};
 	/**
 	* Requests a GET HTTP endpoint
+	* @async
 	* @param {String} url HTTP endpoint
 	* @param {Object} payload Payload to inject will be converted to query string
 	* @param {Object} headers Headers to inject
@@ -273,6 +294,7 @@ module.exports = (H) => {
 	H.httpGet = async function(){return await H.httpRequest('GET', ...arguments);};
 	/**
 	* Requests a POST HTTP endpoint
+	* @async
 	* @param {String} url HTTP endpoint
 	* @param {Object} payload Payload to inject
 	* @param {Object} headers Headers to inject
@@ -284,6 +306,7 @@ module.exports = (H) => {
 	H.httpPost = async function(){return await H.httpRequest('POST', ...arguments);};
 	/**
 	* Requests a PUT HTTP endpoint
+	* @async
 	* @param {String} url HTTP endpoint
 	* @param {Object} payload Payload to inject
 	* @param {Object} headers Headers to inject
@@ -295,6 +318,7 @@ module.exports = (H) => {
 	H.httpPut = async function(){return await H.httpRequest('PUT', ...arguments);};
 	/**
 	* Requests a DELETE HTTP endpoint
+	* @async
 	* @param {String} url HTTP endpoint
 	* @param {Object} payload Payload to inject
 	* @param {Object} headers Headers to inject

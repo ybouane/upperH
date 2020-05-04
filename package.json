@@ -1,11 +1,11 @@
 {
   "name": "upperh",
-  "version": "2.0.0",
-  "description": "Collection of helper functions to make starting a nodeJS project faster.",
+  "version": "2.0.1",
+  "description": "Collection of helper functions to make starting a frontend/backend JS project faster.",
   "main": "H.server.js",
-  "browser"	: "H.browser.js",
+  "browser": "H.browser.js",
   "scripts": {
-    "docs": "documentation readme H.js --section=\"Helper functions\""
+    "docs": "documentation readme H.common.js --section=\"Shared helpers\" --shallow && documentation readme H.server.js --section=\"Server helpers\" --shallow && documentation readme H.browser.js --section=\"Browser helpers\" --shallow"
   },
   "repository": {
     "type": "git",
@@ -33,6 +33,7 @@
   "devDependencies": {
     "gulp": "^4.0.2",
     "gulp-rename": "^2.0.0",
+    "jsdoc-to-markdown": "^5.0.3",
     "webpack-stream": "^5.2.1"
   }
 }
