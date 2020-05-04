@@ -43,6 +43,7 @@ require('./H.common.js')(H);
 const addHProps = (arr) => {
 	for(let prop in HMembers)
 		arr[prop] = HMembers[prop];
+	return arr;
 }
 
 const HMembers = {
