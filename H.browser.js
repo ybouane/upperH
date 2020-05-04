@@ -33,7 +33,7 @@ const H = (s) => {
 		s = Array.from(s);
 	if(!H.isArray(s))
 		s = [s];
-	return addHProps(s);
+	return addHProps(s.filter(e=>e instanceof Node));
 };
 
 require('./H.common.js')(H);
