@@ -1,3 +1,5 @@
+'use strict';
+
 const fs = require('fs');
 const qs = require('qs');
 const util = require('util');

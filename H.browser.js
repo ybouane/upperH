@@ -1,3 +1,5 @@
+'use strict';
+
 /**
 * H helper functions available only for Browsers. Chainable and is similar to jQuery's $ constructor.
 * @typicalname H()
@@ -666,4 +668,4 @@ const HMembers = {
 	},
 };
 
-module.exports = H;
+window.H = H;

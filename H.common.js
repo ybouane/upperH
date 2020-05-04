@@ -1,3 +1,5 @@
+'use strict';
+
 const qs = require('qs');
 /**
 * H helper functions available in both Servers and browsers
