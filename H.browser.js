@@ -33,7 +33,6 @@ const H = (s) => {
 		s = [s];
 	return addHProps(s);
 };
-module.exports = H;
 
 require('./H.common.js')(H);
 
@@ -666,3 +665,5 @@ const HMembers = {
 		return out;
 	},
 };
+
+module.exports = H;
