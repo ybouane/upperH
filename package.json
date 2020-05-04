@@ -1,8 +1,9 @@
 {
   "name": "upperh",
-  "version": "1.2.4",
+  "version": "2.0.0",
   "description": "Collection of helper functions to make starting a nodeJS project faster.",
-  "main": "H.js",
+  "main": "H.server.js",
+  "browser"	: "H.browser.js",
   "scripts": {
     "docs": "documentation readme H.js --section=\"Helper functions\""
   },
@@ -28,5 +29,10 @@
     "node-fetch": "^2.6.0",
     "nunjucks": "^3.2.0",
     "qs": "^6.9.1"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-rename": "^2.0.0",
+    "webpack-stream": "^5.2.1"
   }
 }
