@@ -21,7 +21,7 @@ module.exports = H;
 
 
 require('./H.common.js')(H);
-
+H._fetch = fetch;
 
 
 

@@ -665,4 +665,6 @@ class HObject extends Array {
 };
 H.HObject = HObject;
 
+
+H._fetch = window.fetch;
 module.exports = H;

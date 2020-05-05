@@ -250,7 +250,7 @@ module.exports = (H) => {
 				if(!headers['Accept'] && !headers['accept'])
 					headers['Accept'] = 'application/json';
 			}
-			var response = await fetch(url+getPayload, {
+			var response = await H._fetch(url+getPayload, {
 				method,
 				body,
 				headers,
