@@ -88,6 +88,10 @@ Collection of DOM Nodes, extends Array
     * [.siblings(selector)](#HObject+siblings) ⇒ [<code>HObject</code>](#HObject)
     * [.first()](#HObject+first) ⇒ [<code>HObject</code>](#HObject)
     * [.last()](#HObject+last) ⇒ [<code>HObject</code>](#HObject)
+    * [.prev(selector)](#HObject+prev) ⇒ [<code>HObject</code>](#HObject)
+    * [.next(selector)](#HObject+next) ⇒ [<code>HObject</code>](#HObject)
+    * [.prevAll(selector)](#HObject+prevAll) ⇒ [<code>HObject</code>](#HObject)
+    * [.nextAll(selector)](#HObject+nextAll) ⇒ [<code>HObject</code>](#HObject)
     * [.attr(name)](#HObject+attr) ⇒ <code>String</code>
     * [.attr(name, value)](#HObject+attr) ⇒ [<code>HObject</code>](#HObject)
     * [.removeAttr(name)](#HObject+removeAttr) ⇒ [<code>HObject</code>](#HObject)
@@ -207,6 +211,50 @@ Reduce the set of matched elements to the first in the set.
 Reduce the set of matched elements to the last in the set.
 
 **Kind**: instance method of [<code>HObject</code>](#HObject)  
+<a name="HObject+prev"></a>
+
+### h().prev(selector) ⇒ [<code>HObject</code>](#HObject)
+Get the immediately preceding sibling of each element in the set of matched elements. If a selector is provided, it retrieves the previous sibling only if it matches that selector.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| selector | <code>String</code> | DOM selector |
+
+<a name="HObject+next"></a>
+
+### h().next(selector) ⇒ [<code>HObject</code>](#HObject)
+Get the immediately following sibling of each element in the set of matched elements. If a selector is provided, it retrieves the next sibling only if it matches that selector.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| selector | <code>String</code> | DOM selector |
+
+<a name="HObject+prevAll"></a>
+
+### h().prevAll(selector) ⇒ [<code>HObject</code>](#HObject)
+Get all preceding siblings of each element in the set of matched elements, optionally filtered by a selector.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| selector | <code>String</code> | DOM selector |
+
+<a name="HObject+nextAll"></a>
+
+### h().nextAll(selector) ⇒ [<code>HObject</code>](#HObject)
+Get all following siblings of each element in the set of matched elements, optionally filtered by a selector.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| selector | <code>String</code> | DOM selector |
+
 <a name="HObject+attr"></a>
 
 ### h().attr(name) ⇒ <code>String</code>
