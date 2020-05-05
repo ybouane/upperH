@@ -132,6 +132,54 @@ class HObject extends Array {
 	last() {
 		return new HObject(this[this.length-1]);
 	}
+	/**
+	* Get the immediately preceding sibling of each element in the set of matched elements. If a selector is provided, it retrieves the previous sibling only if it matches that selector.
+	* @param {String} selector DOM selector
+	* @returns {HObject}
+	*/
+	prev(sel) {
+		return this.map(e=>e.previousElementSibling).filter(e=>e && (!sel || e.matches(sel)));
+	}
+	/**
+	* Get the immediately following sibling of each element in the set of matched elements. If a selector is provided, it retrieves the next sibling only if it matches that selector.
+	* @param {String} selector DOM selector
+	* @returns {HObject}
+	*/
+	next(sel) {
+		return this.map(e=>e.nextElementSibling).filter(e=>e && (!sel || e.matches(sel)));
+	}
+	/**
+	* Get all preceding siblings of each element in the set of matched elements, optionally filtered by a selector.
+	* @param {String} selector DOM selector
+	* @returns {HObject}
+	*/
+	prevAll(sel) {
+		var elements = new HObject();
+		for(let el of this) {
+			while(el) {
+				el = el.previousElementSibling;
+				if(el && (!sel || el.matches(sel)))
+					elements.push(el);
+			}
+		}
+		return elements;
+	}
+	/**
+	* Get all following siblings of each element in the set of matched elements, optionally filtered by a selector.
+	* @param {String} selector DOM selector
+	* @returns {HObject}
+	*/
+	nextAll(sel) {
+		var elements = new HObject();
+		for(let el of this) {
+			while(el) {
+				el = el.nextElementSibling;
+				if(el && (!sel || el.matches(sel)))
+					elements.push(el);
+			}
+		}
+		return elements;
+	}
 
 	/**
 	* Get the value of an attribute for the first element in the set of matched elements.
