@@ -120,7 +120,7 @@ H.uniqueToken = () => crypto.createHash('md5').update(
 * @memberof HServer
 * @param {String|Buffer} str Input to get hash of
 * @returns {String} MD5 hash of input (in HEX format)
-* @name md
+* @name md5
 */
 H.md5 = (str) => crypto.createHash('md5').update(String(str), 'utf8').digest('hex');
 /**
@@ -128,7 +128,7 @@ H.md5 = (str) => crypto.createHash('md5').update(String(str), 'utf8').digest('he
 * @memberof HServer
 * @param {String|Buffer} str Input to get hash of
 * @returns {String} SHA1 hash of input (in HEX format)
-* @name sha
+* @name sha1
 */
 H.sha1 = (str) => crypto.createHash('sha1').update(String(str), 'utf8').digest('hex');
 /**
@@ -136,7 +136,7 @@ H.sha1 = (str) => crypto.createHash('sha1').update(String(str), 'utf8').digest('
 * @memberof HServer
 * @param {String|Buffer} str Input to get hash of
 * @returns {String} SHA256 hash of input (in HEX format)
-* @name sha
+* @name sha256
 */
 H.sha256 = (str) => crypto.createHash('sha256').update(String(str), 'utf8').digest('hex');
 

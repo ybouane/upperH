@@ -50,10 +50,18 @@ H(async () => { // Will execute when DOM is loaded
 ```
 
 
+## Classes
+
+<dl>
+<dt><a href="#HObject">HObject</a></dt>
+<dd><p>Collection of DOM Nodes, extends Array</p>
+</dd>
+</dl>
+
 ## Members
 
 <dl>
-<dt><a href="#HBrowser">HBrowser</a> ⇒ <code>this</code></dt>
+<dt><a href="#HBrowser">HBrowser</a> ⇒ <code><a href="#HObject">HObject</a></code></dt>
 <dd><p>H helper functions available only for Browsers. Chainable and is similar to jQuery&#39;s $ constructor.</p>
 </dd>
 <dt><a href="#H">H</a></dt>
@@ -64,9 +72,547 @@ H(async () => { // Will execute when DOM is loaded
 </dd>
 </dl>
 
+<a name="HObject"></a>
+
+## HObject
+Collection of DOM Nodes, extends Array
+
+**Kind**: global class  
+
+* [HObject](#HObject)
+    * [.find(selector)](#HObject+find) ⇒ [<code>HObject</code>](#HObject)
+    * [.closest(selector)](#HObject+closest) ⇒ [<code>HObject</code>](#HObject)
+    * [.parents(selector)](#HObject+parents) ⇒ [<code>HObject</code>](#HObject)
+    * [.parent(selector)](#HObject+parent) ⇒ [<code>HObject</code>](#HObject)
+    * [.children(selector)](#HObject+children) ⇒ [<code>HObject</code>](#HObject)
+    * [.siblings(selector)](#HObject+siblings) ⇒ [<code>HObject</code>](#HObject)
+    * [.first()](#HObject+first) ⇒ [<code>HObject</code>](#HObject)
+    * [.last()](#HObject+last) ⇒ [<code>HObject</code>](#HObject)
+    * [.attr(name)](#HObject+attr) ⇒ <code>String</code>
+    * [.attr(name, value)](#HObject+attr) ⇒ [<code>HObject</code>](#HObject)
+    * [.removeAttr(name)](#HObject+removeAttr) ⇒ [<code>HObject</code>](#HObject)
+    * [.show()](#HObject+show) ⇒ [<code>HObject</code>](#HObject)
+    * [.hide()](#HObject+hide) ⇒ [<code>HObject</code>](#HObject)
+    * [.prop(key)](#HObject+prop) ⇒ <code>String</code>
+    * [.prop(key, value)](#HObject+prop) ⇒ [<code>HObject</code>](#HObject)
+    * [.css(name)](#HObject+css) ⇒ <code>String</code>
+    * [.css(name, value)](#HObject+css) ⇒ [<code>HObject</code>](#HObject)
+    * [.css(properties)](#HObject+css) ⇒ [<code>HObject</code>](#HObject)
+    * [.append(content)](#HObject+append) ⇒ [<code>HObject</code>](#HObject)
+    * [.appendTo(target)](#HObject+appendTo) ⇒ [<code>HObject</code>](#HObject)
+    * [.prepend(content)](#HObject+prepend) ⇒ [<code>HObject</code>](#HObject)
+    * [.prependTo(target)](#HObject+prependTo) ⇒ [<code>HObject</code>](#HObject)
+    * [.empty()](#HObject+empty) ⇒ [<code>HObject</code>](#HObject)
+    * [.remove()](#HObject+remove) ⇒ <code>void</code>
+    * [.eq(index)](#HObject+eq) ⇒ [<code>HObject</code>](#HObject)
+    * [.index()](#HObject+index) ⇒ <code>Number</code>
+    * [.html()](#HObject+html) ⇒ <code>String</code>
+    * [.html(content)](#HObject+html) ⇒ [<code>HObject</code>](#HObject)
+    * [.text()](#HObject+text) ⇒ <code>String</code>
+    * [.text(content)](#HObject+text) ⇒ [<code>HObject</code>](#HObject)
+    * [.val()](#HObject+val) ⇒ <code>String</code>
+    * [.val(value)](#HObject+val) ⇒ [<code>HObject</code>](#HObject)
+    * [.each(function)](#HObject+each) ⇒ [<code>HObject</code>](#HObject)
+    * [.get()](#HObject+get) ⇒ <code>Node</code>
+    * [.get(index)](#HObject+get) ⇒ <code>Node</code>
+    * [.addClass(className)](#HObject+addClass) ⇒ [<code>HObject</code>](#HObject)
+    * [.removeClass(className)](#HObject+removeClass) ⇒ [<code>HObject</code>](#HObject)
+    * [.toggleClass(className)](#HObject+toggleClass) ⇒ [<code>HObject</code>](#HObject)
+    * [.hasClass(className)](#HObject+hasClass) ⇒ <code>Boolean</code>
+    * [.filter(selector)](#HObject+filter) ⇒ [<code>HObject</code>](#HObject)
+    * [.filter(fn)](#HObject+filter) ⇒ [<code>HObject</code>](#HObject)
+    * [.is(selector)](#HObject+is) ⇒ <code>Boolean</code>
+    * [.offset()](#HObject+offset) ⇒ <code>Object</code>
+    * [.on(events, selector, callback, options)](#HObject+on) ⇒ [<code>HObject</code>](#HObject)
+    * [.one(events, selector, callback, options)](#HObject+one) ⇒ [<code>HObject</code>](#HObject)
+    * [.off(events, callback)](#HObject+off) ⇒ [<code>HObject</code>](#HObject)
+    * [.trigger(event, extraParams)](#HObject+trigger) ⇒ [<code>HObject</code>](#HObject)
+    * [.triggerHandler(event, extraParams)](#HObject+triggerHandler) ⇒ <code>Mixed</code>
+
+<a name="HObject+find"></a>
+
+### h().find(selector) ⇒ [<code>HObject</code>](#HObject)
+Get the descendants of each element in the current set of matched elements, filtered by a selector.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| selector | <code>String</code> | DOM selector |
+
+<a name="HObject+closest"></a>
+
+### h().closest(selector) ⇒ [<code>HObject</code>](#HObject)
+For each element in the set, get the first element that matches the selector by testing the element itself and traversing up through its ancestors in the DOM tree.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| selector | <code>String</code> | DOM selector |
+
+<a name="HObject+parents"></a>
+
+### h().parents(selector) ⇒ [<code>HObject</code>](#HObject)
+Get the ancestors of each element in the current set of matched elements, optionally filtered by a selector.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| selector | <code>String</code> | DOM selector |
+
+<a name="HObject+parent"></a>
+
+### h().parent(selector) ⇒ [<code>HObject</code>](#HObject)
+Get the parent of each element in the current set of matched elements, optionally filtered by a selector.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| selector | <code>String</code> | DOM selector |
+
+<a name="HObject+children"></a>
+
+### h().children(selector) ⇒ [<code>HObject</code>](#HObject)
+Get the children of each element in the set of matched elements, optionally filtered by a selector.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| selector | <code>String</code> | DOM selector |
+
+<a name="HObject+siblings"></a>
+
+### h().siblings(selector) ⇒ [<code>HObject</code>](#HObject)
+Get the siblings of each element in the set of matched elements, optionally filtered by a selector.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| selector | <code>String</code> | DOM selector |
+
+<a name="HObject+first"></a>
+
+### h().first() ⇒ [<code>HObject</code>](#HObject)
+Reduce the set of matched elements to the first in the set.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+<a name="HObject+last"></a>
+
+### h().last() ⇒ [<code>HObject</code>](#HObject)
+Reduce the set of matched elements to the last in the set.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+<a name="HObject+attr"></a>
+
+### h().attr(name) ⇒ <code>String</code>
+Get the value of an attribute for the first element in the set of matched elements.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| name | <code>String</code> | Attribute name |
+
+<a name="HObject+attr"></a>
+
+### h().attr(name, value) ⇒ [<code>HObject</code>](#HObject)
+Set an attribute for the set of matched elements.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| name | <code>String</code> | Attribute name |
+| value | <code>String</code> | Attribute value |
+
+<a name="HObject+removeAttr"></a>
+
+### h().removeAttr(name) ⇒ [<code>HObject</code>](#HObject)
+Remove an attribute from each element in the set of matched elements.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| name | <code>String</code> | Attribute name |
+
+<a name="HObject+show"></a>
+
+### h().show() ⇒ [<code>HObject</code>](#HObject)
+Display the matched elements.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+<a name="HObject+hide"></a>
+
+### h().hide() ⇒ [<code>HObject</code>](#HObject)
+Hide the matched elements.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+<a name="HObject+prop"></a>
+
+### h().prop(key) ⇒ <code>String</code>
+Get the value of a property for the first element in the set of matched elements.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| key | <code>String</code> | Property name |
+
+<a name="HObject+prop"></a>
+
+### h().prop(key, value) ⇒ [<code>HObject</code>](#HObject)
+Set a property for the set of matched elements.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| key | <code>String</code> | Property name |
+| value | <code>String</code> | Property value |
+
+<a name="HObject+css"></a>
+
+### h().css(name) ⇒ <code>String</code>
+Get the computed style properties for the first element in the set of matched elements.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| name | <code>String</code> | Property name |
+
+<a name="HObject+css"></a>
+
+### h().css(name, value) ⇒ [<code>HObject</code>](#HObject)
+Set a CSS property for the set of matched elements.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| name | <code>String</code> | Property name |
+| value | <code>String</code> | Property value |
+
+<a name="HObject+css"></a>
+
+### h().css(properties) ⇒ [<code>HObject</code>](#HObject)
+Set one or more CSS properties for the set of matched elements.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| properties | <code>Object</code> | Key-value pair of properties to set. |
+
+<a name="HObject+append"></a>
+
+### h().append(content) ⇒ [<code>HObject</code>](#HObject)
+Insert content, specified by the parameter, to the end of each element in the set of matched elements.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| content | <code>Mixed</code> | Content to insert. (either a selector, HTML content or a DOM Node) |
+
+<a name="HObject+appendTo"></a>
+
+### h().appendTo(target) ⇒ [<code>HObject</code>](#HObject)
+Insert every element in the set of matched elements to the end of the target(s).
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| target | <code>Mixed</code> | Target of the content. (either a selector, HTML content or a DOM Node) |
+
+<a name="HObject+prepend"></a>
+
+### h().prepend(content) ⇒ [<code>HObject</code>](#HObject)
+Insert content, specified by the parameter, to the beginning of each element in the set of matched elements.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| content | <code>Mixed</code> | Content to insert. (either a selector, HTML content or a DOM Node) |
+
+<a name="HObject+prependTo"></a>
+
+### h().prependTo(target) ⇒ [<code>HObject</code>](#HObject)
+Insert every element in the set of matched elements to the beginning of the target(s).
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| target | <code>Mixed</code> | Target of the content. (either a selector, HTML content or a DOM Node) |
+
+<a name="HObject+empty"></a>
+
+### h().empty() ⇒ [<code>HObject</code>](#HObject)
+Remove all child nodes of the set of matched elements from the DOM.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+<a name="HObject+remove"></a>
+
+### h().remove() ⇒ <code>void</code>
+Remove the set of matched elements from the DOM.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+<a name="HObject+eq"></a>
+
+### h().eq(index) ⇒ [<code>HObject</code>](#HObject)
+Reduce the set of matched elements to the one at the specified index.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| index | <code>Number</code> | Index of the element |
+
+<a name="HObject+index"></a>
+
+### h().index() ⇒ <code>Number</code>
+Search for a given element from among the matched elements.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+<a name="HObject+html"></a>
+
+### h().html() ⇒ <code>String</code>
+Get the HTML contents of the first element in the set of matched elements.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+<a name="HObject+html"></a>
+
+### h().html(content) ⇒ [<code>HObject</code>](#HObject)
+Set the HTML contents of each element in the set of matched elements.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| content | <code>String</code> | HTML content |
+
+<a name="HObject+text"></a>
+
+### h().text() ⇒ <code>String</code>
+Get the combined text contents of each element in the set of matched elements, including their descendants.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+<a name="HObject+text"></a>
+
+### h().text(content) ⇒ [<code>HObject</code>](#HObject)
+Set the content of each element in the set of matched elements to the specified text.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| content | <code>String</code> | Text content |
+
+<a name="HObject+val"></a>
+
+### h().val() ⇒ <code>String</code>
+Get the current value of the first element in the set of matched elements.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+<a name="HObject+val"></a>
+
+### h().val(value) ⇒ [<code>HObject</code>](#HObject)
+Set the value of each element in the set of matched elements.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| value | <code>String</code> | Value |
+
+<a name="HObject+each"></a>
+
+### h().each(function) ⇒ [<code>HObject</code>](#HObject)
+Iterate over a jQuery object, executing a function for each matched element.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| function | <code>function</code> | Function to execute |
+
+<a name="HObject+get"></a>
+
+### h().get() ⇒ <code>Node</code>
+Retrieve the elements matched as a vanilla Array.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+<a name="HObject+get"></a>
+
+### h().get(index) ⇒ <code>Node</code>
+Retrieve one of the elements matched.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| index | <code>Number</code> | Index of the element to return |
+
+<a name="HObject+addClass"></a>
+
+### h().addClass(className) ⇒ [<code>HObject</code>](#HObject)
+Adds the specified class(es) to each element in the set of matched elements
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| className | <code>String</code> | Class name |
+
+<a name="HObject+removeClass"></a>
+
+### h().removeClass(className) ⇒ [<code>HObject</code>](#HObject)
+Remove a single class, multiple classes, or all classes from each element in the set of matched elements.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| className | <code>String</code> | Class name |
+
+<a name="HObject+toggleClass"></a>
+
+### h().toggleClass(className) ⇒ [<code>HObject</code>](#HObject)
+Add or remove one or more classes from each element in the set of matched elements, depending on either the class's presence or the value of the state argument.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| className | <code>String</code> | Class name |
+
+<a name="HObject+hasClass"></a>
+
+### h().hasClass(className) ⇒ <code>Boolean</code>
+Determine whether any of the matched elements are assigned the given class.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| className | <code>String</code> | Class name |
+
+<a name="HObject+filter"></a>
+
+### h().filter(selector) ⇒ [<code>HObject</code>](#HObject)
+Reduce the set of matched elements to those that match the selector.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| selector | <code>String</code> | DOM Selector |
+
+<a name="HObject+filter"></a>
+
+### h().filter(fn) ⇒ [<code>HObject</code>](#HObject)
+Reduce the set of matched elements to those that match the function's test.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| fn | <code>function</code> | Function used as a test for each elkement in the set. |
+
+<a name="HObject+is"></a>
+
+### h().is(selector) ⇒ <code>Boolean</code>
+Check the current matched set of elements against a selector and return true if at least one of these elements matches the given arguments.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| selector | <code>String</code> | DOM Selector |
+
+<a name="HObject+offset"></a>
+
+### h().offset() ⇒ <code>Object</code>
+Get the current coordinates of the first element in the set of matched elements, relative to the document.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+**Returns**: <code>Object</code> - \{top, left\}  
+<a name="HObject+on"></a>
+
+### h().on(events, selector, callback, options) ⇒ [<code>HObject</code>](#HObject)
+Attach an event handler function for one or more events to the selected elements.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| events | <code>String</code> | One or more space-separated event types and optional namespaces. |
+| selector | <code>String</code> | A selector string to filter the descendants of the selected elements that trigger the event. |
+| callback | <code>function</code> | Event Handler |
+| options | <code>Object</code> | Additional options for .addEventListener |
+
+<a name="HObject+one"></a>
+
+### h().one(events, selector, callback, options) ⇒ [<code>HObject</code>](#HObject)
+Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| events | <code>String</code> | One or more space-separated event types and optional namespaces. |
+| selector | <code>String</code> | A selector string to filter the descendants of the selected elements that trigger the event. |
+| callback | <code>function</code> | Event Handler |
+| options | <code>Object</code> | Additional options for .addEventListener |
+
+<a name="HObject+off"></a>
+
+### h().off(events, callback) ⇒ [<code>HObject</code>](#HObject)
+Remove an event handler.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| events | <code>String</code> | One or more space-separated event types and optional namespaces. |
+| callback | <code>function</code> | Event Handler |
+
+<a name="HObject+trigger"></a>
+
+### h().trigger(event, extraParams) ⇒ [<code>HObject</code>](#HObject)
+Execute all handlers and behaviors attached to the matched elements for the given event type.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| event | <code>String</code> | Event types and optional namespaces. |
+| extraParams | <code>Array.&lt;Mixed&gt;</code> | Additional parameters to pass along to the event handler. |
+
+<a name="HObject+triggerHandler"></a>
+
+### h().triggerHandler(event, extraParams) ⇒ <code>Mixed</code>
+Execute all handlers attached to an element for an event.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| event | <code>String</code> | Event types and optional namespaces. |
+| extraParams | <code>Array.&lt;Mixed&gt;</code> | Additional parameters to pass along to the event handler. |
+
 <a name="HBrowser"></a>
 
-## HBrowser ⇒ <code>this</code>
+## HBrowser ⇒ [<code>HObject</code>](#HObject)
 H helper functions available only for Browsers. Chainable and is similar to jQuery's $ constructor.
 
 **Kind**: global variable  
@@ -74,538 +620,6 @@ H helper functions available only for Browsers. Chainable and is similar to jQue
 | Param | Type | Description |
 | --- | --- | --- |
 | parameter | <code>String</code> \| <code>function</code> | DOM selector, HTML code that will be used to create new elements, Function to run when document is ready. Similar to $(function(){ }) or $(document).ready(function(){ }) |
-
-
-* [HBrowser](#HBrowser) ⇒ <code>this</code>
-    * [.find(selector)](#HBrowser+find) ⇒ <code>this</code>
-    * [.closest(selector)](#HBrowser+closest) ⇒ <code>this</code>
-    * [.parents(selector)](#HBrowser+parents) ⇒ <code>this</code>
-    * [.parent(selector)](#HBrowser+parent) ⇒ <code>this</code>
-    * [.children(selector)](#HBrowser+children) ⇒ <code>this</code>
-    * [.siblings(selector)](#HBrowser+siblings) ⇒ <code>this</code>
-    * [.first()](#HBrowser+first) ⇒ <code>this</code>
-    * [.last()](#HBrowser+last) ⇒ <code>this</code>
-    * [.attr(name)](#HBrowser+attr) ⇒ <code>String</code>
-    * [.attr(name, value)](#HBrowser+attr) ⇒ <code>this</code>
-    * [.removeAttr(name)](#HBrowser+removeAttr) ⇒ <code>this</code>
-    * [.show()](#HBrowser+show) ⇒ <code>this</code>
-    * [.hide()](#HBrowser+hide) ⇒ <code>this</code>
-    * [.prop(key)](#HBrowser+prop) ⇒ <code>String</code>
-    * [.prop(key, value)](#HBrowser+prop) ⇒ <code>this</code>
-    * [.css(name)](#HBrowser+css) ⇒ <code>String</code>
-    * [.css(name, value)](#HBrowser+css) ⇒ <code>this</code>
-    * [.css(properties)](#HBrowser+css) ⇒ <code>this</code>
-    * [.append(content)](#HBrowser+append) ⇒ <code>this</code>
-    * [.appendTo(target)](#HBrowser+appendTo) ⇒ <code>this</code>
-    * [.prepend(content)](#HBrowser+prepend) ⇒ <code>this</code>
-    * [.prependTo(target)](#HBrowser+prependTo) ⇒ <code>this</code>
-    * [.empty()](#HBrowser+empty) ⇒ <code>this</code>
-    * [.remove()](#HBrowser+remove) ⇒ <code>void</code>
-    * [.eq(index)](#HBrowser+eq) ⇒ <code>this</code>
-    * [.index()](#HBrowser+index) ⇒ <code>Number</code>
-    * [.html()](#HBrowser+html) ⇒ <code>String</code>
-    * [.html(content)](#HBrowser+html) ⇒ <code>this</code>
-    * [.text()](#HBrowser+text) ⇒ <code>String</code>
-    * [.text(content)](#HBrowser+text) ⇒ <code>this</code>
-    * [.val()](#HBrowser+val) ⇒ <code>String</code>
-    * [.val(value)](#HBrowser+val) ⇒ <code>this</code>
-    * [.each(function)](#HBrowser+each) ⇒ <code>this</code>
-    * [.get()](#HBrowser+get) ⇒ <code>Node</code>
-    * [.get(index)](#HBrowser+get) ⇒ <code>Node</code>
-    * [.addClass(className)](#HBrowser+addClass) ⇒ <code>this</code>
-    * [.removeClass(className)](#HBrowser+removeClass) ⇒ <code>this</code>
-    * [.toggleClass(className)](#HBrowser+toggleClass) ⇒ <code>this</code>
-    * [.hasClass(className)](#HBrowser+hasClass) ⇒ <code>Boolean</code>
-    * [.filter(selector)](#HBrowser+filter) ⇒ <code>this</code>
-    * [.filter(fn)](#HBrowser+filter) ⇒ <code>this</code>
-    * [.is(selector)](#HBrowser+is) ⇒ <code>Boolean</code>
-    * [.offset()](#HBrowser+offset) ⇒ <code>Object</code>
-    * [.on(events, selector, callback, options)](#HBrowser+on) ⇒ <code>this</code>
-    * [.one(events, selector, callback, options)](#HBrowser+one) ⇒ <code>this</code>
-    * [.off(events, callback)](#HBrowser+off) ⇒ <code>this</code>
-    * [.trigger(event, extraParams)](#HBrowser+trigger) ⇒ <code>this</code>
-    * [.triggerHandler(event, extraParams)](#HBrowser+triggerHandler) ⇒ <code>Mixed</code>
-
-<a name="HBrowser+find"></a>
-
-### h().find(selector) ⇒ <code>this</code>
-Get the descendants of each element in the current set of matched elements, filtered by a selector.
-
-**Kind**: instance method of [<code>HBrowser</code>](#HBrowser)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| selector | <code>String</code> | DOM selector |
-
-<a name="HBrowser+closest"></a>
-
-### h().closest(selector) ⇒ <code>this</code>
-For each element in the set, get the first element that matches the selector by testing the element itself and traversing up through its ancestors in the DOM tree.
-
-**Kind**: instance method of [<code>HBrowser</code>](#HBrowser)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| selector | <code>String</code> | DOM selector |
-
-<a name="HBrowser+parents"></a>
-
-### h().parents(selector) ⇒ <code>this</code>
-Get the ancestors of each element in the current set of matched elements, optionally filtered by a selector.
-
-**Kind**: instance method of [<code>HBrowser</code>](#HBrowser)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| selector | <code>String</code> | DOM selector |
-
-<a name="HBrowser+parent"></a>
-
-### h().parent(selector) ⇒ <code>this</code>
-Get the parent of each element in the current set of matched elements, optionally filtered by a selector.
-
-**Kind**: instance method of [<code>HBrowser</code>](#HBrowser)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| selector | <code>String</code> | DOM selector |
-
-<a name="HBrowser+children"></a>
-
-### h().children(selector) ⇒ <code>this</code>
-Get the children of each element in the set of matched elements, optionally filtered by a selector.
-
-**Kind**: instance method of [<code>HBrowser</code>](#HBrowser)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| selector | <code>String</code> | DOM selector |
-
-<a name="HBrowser+siblings"></a>
-
-### h().siblings(selector) ⇒ <code>this</code>
-Get the siblings of each element in the set of matched elements, optionally filtered by a selector.
-
-**Kind**: instance method of [<code>HBrowser</code>](#HBrowser)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| selector | <code>String</code> | DOM selector |
-
-<a name="HBrowser+first"></a>
-
-### h().first() ⇒ <code>this</code>
-Reduce the set of matched elements to the first in the set.
-
-**Kind**: instance method of [<code>HBrowser</code>](#HBrowser)  
-<a name="HBrowser+last"></a>
-
-### h().last() ⇒ <code>this</code>
-Reduce the set of matched elements to the last in the set.
-
-**Kind**: instance method of [<code>HBrowser</code>](#HBrowser)  
-<a name="HBrowser+attr"></a>
-
-### h().attr(name) ⇒ <code>String</code>
-Get the value of an attribute for the first element in the set of matched elements.
-
-**Kind**: instance method of [<code>HBrowser</code>](#HBrowser)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| name | <code>String</code> | Attribute name |
-
-<a name="HBrowser+attr"></a>
-
-### h().attr(name, value) ⇒ <code>this</code>
-Set an attribute for the set of matched elements.
-
-**Kind**: instance method of [<code>HBrowser</code>](#HBrowser)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| name | <code>String</code> | Attribute name |
-| value | <code>String</code> | Attribute value |
-
-<a name="HBrowser+removeAttr"></a>
-
-### h().removeAttr(name) ⇒ <code>this</code>
-Remove an attribute from each element in the set of matched elements.
-
-**Kind**: instance method of [<code>HBrowser</code>](#HBrowser)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| name | <code>String</code> | Attribute name |
-
-<a name="HBrowser+show"></a>
-
-### h().show() ⇒ <code>this</code>
-Display the matched elements.
-
-**Kind**: instance method of [<code>HBrowser</code>](#HBrowser)  
-<a name="HBrowser+hide"></a>
-
-### h().hide() ⇒ <code>this</code>
-Hide the matched elements.
-
-**Kind**: instance method of [<code>HBrowser</code>](#HBrowser)  
-<a name="HBrowser+prop"></a>
-
-### h().prop(key) ⇒ <code>String</code>
-Get the value of a property for the first element in the set of matched elements.
-
-**Kind**: instance method of [<code>HBrowser</code>](#HBrowser)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| key | <code>String</code> | Property name |
-
-<a name="HBrowser+prop"></a>
-
-### h().prop(key, value) ⇒ <code>this</code>
-Set a property for the set of matched elements.
-
-**Kind**: instance method of [<code>HBrowser</code>](#HBrowser)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| key | <code>String</code> | Property name |
-| value | <code>String</code> | Property value |
-
-<a name="HBrowser+css"></a>
-
-### h().css(name) ⇒ <code>String</code>
-Get the computed style properties for the first element in the set of matched elements.
-
-**Kind**: instance method of [<code>HBrowser</code>](#HBrowser)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| name | <code>String</code> | Property name |
-
-<a name="HBrowser+css"></a>
-
-### h().css(name, value) ⇒ <code>this</code>
-Set a CSS property for the set of matched elements.
-
-**Kind**: instance method of [<code>HBrowser</code>](#HBrowser)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| name | <code>String</code> | Property name |
-| value | <code>String</code> | Property value |
-
-<a name="HBrowser+css"></a>
-
-### h().css(properties) ⇒ <code>this</code>
-Set one or more CSS properties for the set of matched elements.
-
-**Kind**: instance method of [<code>HBrowser</code>](#HBrowser)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| properties | <code>Object</code> | Key-value pair of properties to set. |
-
-<a name="HBrowser+append"></a>
-
-### h().append(content) ⇒ <code>this</code>
-Insert content, specified by the parameter, to the end of each element in the set of matched elements.
-
-**Kind**: instance method of [<code>HBrowser</code>](#HBrowser)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| content | <code>Mixed</code> | Content to insert. (either a selector, HTML content or a DOM Node) |
-
-<a name="HBrowser+appendTo"></a>
-
-### h().appendTo(target) ⇒ <code>this</code>
-Insert every element in the set of matched elements to the end of the target(s).
-
-**Kind**: instance method of [<code>HBrowser</code>](#HBrowser)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| target | <code>Mixed</code> | Target of the content. (either a selector, HTML content or a DOM Node) |
-
-<a name="HBrowser+prepend"></a>
-
-### h().prepend(content) ⇒ <code>this</code>
-Insert content, specified by the parameter, to the beginning of each element in the set of matched elements.
-
-**Kind**: instance method of [<code>HBrowser</code>](#HBrowser)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| content | <code>Mixed</code> | Content to insert. (either a selector, HTML content or a DOM Node) |
-
-<a name="HBrowser+prependTo"></a>
-
-### h().prependTo(target) ⇒ <code>this</code>
-Insert every element in the set of matched elements to the beginning of the target(s).
-
-**Kind**: instance method of [<code>HBrowser</code>](#HBrowser)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| target | <code>Mixed</code> | Target of the content. (either a selector, HTML content or a DOM Node) |
-
-<a name="HBrowser+empty"></a>
-
-### h().empty() ⇒ <code>this</code>
-Remove all child nodes of the set of matched elements from the DOM.
-
-**Kind**: instance method of [<code>HBrowser</code>](#HBrowser)  
-<a name="HBrowser+remove"></a>
-
-### h().remove() ⇒ <code>void</code>
-Remove the set of matched elements from the DOM.
-
-**Kind**: instance method of [<code>HBrowser</code>](#HBrowser)  
-<a name="HBrowser+eq"></a>
-
-### h().eq(index) ⇒ <code>this</code>
-Reduce the set of matched elements to the one at the specified index.
-
-**Kind**: instance method of [<code>HBrowser</code>](#HBrowser)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| index | <code>Number</code> | Index of the element |
-
-<a name="HBrowser+index"></a>
-
-### h().index() ⇒ <code>Number</code>
-Search for a given element from among the matched elements.
-
-**Kind**: instance method of [<code>HBrowser</code>](#HBrowser)  
-<a name="HBrowser+html"></a>
-
-### h().html() ⇒ <code>String</code>
-Get the HTML contents of the first element in the set of matched elements.
-
-**Kind**: instance method of [<code>HBrowser</code>](#HBrowser)  
-<a name="HBrowser+html"></a>
-
-### h().html(content) ⇒ <code>this</code>
-Set the HTML contents of each element in the set of matched elements.
-
-**Kind**: instance method of [<code>HBrowser</code>](#HBrowser)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| content | <code>String</code> | HTML content |
-
-<a name="HBrowser+text"></a>
-
-### h().text() ⇒ <code>String</code>
-Get the combined text contents of each element in the set of matched elements, including their descendants.
-
-**Kind**: instance method of [<code>HBrowser</code>](#HBrowser)  
-<a name="HBrowser+text"></a>
-
-### h().text(content) ⇒ <code>this</code>
-Set the content of each element in the set of matched elements to the specified text.
-
-**Kind**: instance method of [<code>HBrowser</code>](#HBrowser)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| content | <code>String</code> | Text content |
-
-<a name="HBrowser+val"></a>
-
-### h().val() ⇒ <code>String</code>
-Get the current value of the first element in the set of matched elements.
-
-**Kind**: instance method of [<code>HBrowser</code>](#HBrowser)  
-<a name="HBrowser+val"></a>
-
-### h().val(value) ⇒ <code>this</code>
-Set the value of each element in the set of matched elements.
-
-**Kind**: instance method of [<code>HBrowser</code>](#HBrowser)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| value | <code>String</code> | Value |
-
-<a name="HBrowser+each"></a>
-
-### h().each(function) ⇒ <code>this</code>
-Iterate over a jQuery object, executing a function for each matched element.
-
-**Kind**: instance method of [<code>HBrowser</code>](#HBrowser)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| function | <code>function</code> | Function to execute |
-
-<a name="HBrowser+get"></a>
-
-### h().get() ⇒ <code>Node</code>
-Retrieve the elements matched as a vanilla Array.
-
-**Kind**: instance method of [<code>HBrowser</code>](#HBrowser)  
-<a name="HBrowser+get"></a>
-
-### h().get(index) ⇒ <code>Node</code>
-Retrieve one of the elements matched.
-
-**Kind**: instance method of [<code>HBrowser</code>](#HBrowser)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| index | <code>Number</code> | Index of the element to return |
-
-<a name="HBrowser+addClass"></a>
-
-### h().addClass(className) ⇒ <code>this</code>
-Adds the specified class(es) to each element in the set of matched elements
-
-**Kind**: instance method of [<code>HBrowser</code>](#HBrowser)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| className | <code>String</code> | Class name |
-
-<a name="HBrowser+removeClass"></a>
-
-### h().removeClass(className) ⇒ <code>this</code>
-Remove a single class, multiple classes, or all classes from each element in the set of matched elements.
-
-**Kind**: instance method of [<code>HBrowser</code>](#HBrowser)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| className | <code>String</code> | Class name |
-
-<a name="HBrowser+toggleClass"></a>
-
-### h().toggleClass(className) ⇒ <code>this</code>
-Add or remove one or more classes from each element in the set of matched elements, depending on either the class's presence or the value of the state argument.
-
-**Kind**: instance method of [<code>HBrowser</code>](#HBrowser)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| className | <code>String</code> | Class name |
-
-<a name="HBrowser+hasClass"></a>
-
-### h().hasClass(className) ⇒ <code>Boolean</code>
-Determine whether any of the matched elements are assigned the given class.
-
-**Kind**: instance method of [<code>HBrowser</code>](#HBrowser)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| className | <code>String</code> | Class name |
-
-<a name="HBrowser+filter"></a>
-
-### h().filter(selector) ⇒ <code>this</code>
-Reduce the set of matched elements to those that match the selector.
-
-**Kind**: instance method of [<code>HBrowser</code>](#HBrowser)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| selector | <code>String</code> | DOM Selector |
-
-<a name="HBrowser+filter"></a>
-
-### h().filter(fn) ⇒ <code>this</code>
-Reduce the set of matched elements to those that match the function's test.
-
-**Kind**: instance method of [<code>HBrowser</code>](#HBrowser)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| fn | <code>function</code> | Function used as a test for each elkement in the set. |
-
-<a name="HBrowser+is"></a>
-
-### h().is(selector) ⇒ <code>Boolean</code>
-Check the current matched set of elements against a selector and return true if at least one of these elements matches the given arguments.
-
-**Kind**: instance method of [<code>HBrowser</code>](#HBrowser)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| selector | <code>String</code> | DOM Selector |
-
-<a name="HBrowser+offset"></a>
-
-### h().offset() ⇒ <code>Object</code>
-Get the current coordinates of the first element in the set of matched elements, relative to the document.
-
-**Kind**: instance method of [<code>HBrowser</code>](#HBrowser)  
-**Returns**: <code>Object</code> - \{top, left\}  
-<a name="HBrowser+on"></a>
-
-### h().on(events, selector, callback, options) ⇒ <code>this</code>
-Attach an event handler function for one or more events to the selected elements.
-
-**Kind**: instance method of [<code>HBrowser</code>](#HBrowser)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| events | <code>String</code> | One or more space-separated event types and optional namespaces. |
-| selector | <code>String</code> | A selector string to filter the descendants of the selected elements that trigger the event. |
-| callback | <code>function</code> | Event Handler |
-| options | <code>Object</code> | Additional options for .addEventListener |
-
-<a name="HBrowser+one"></a>
-
-### h().one(events, selector, callback, options) ⇒ <code>this</code>
-Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
-
-**Kind**: instance method of [<code>HBrowser</code>](#HBrowser)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| events | <code>String</code> | One or more space-separated event types and optional namespaces. |
-| selector | <code>String</code> | A selector string to filter the descendants of the selected elements that trigger the event. |
-| callback | <code>function</code> | Event Handler |
-| options | <code>Object</code> | Additional options for .addEventListener |
-
-<a name="HBrowser+off"></a>
-
-### h().off(events, callback) ⇒ <code>this</code>
-Remove an event handler.
-
-**Kind**: instance method of [<code>HBrowser</code>](#HBrowser)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| events | <code>String</code> | One or more space-separated event types and optional namespaces. |
-| callback | <code>function</code> | Event Handler |
-
-<a name="HBrowser+trigger"></a>
-
-### h().trigger(event, extraParams) ⇒ <code>this</code>
-Execute all handlers and behaviors attached to the matched elements for the given event type.
-
-**Kind**: instance method of [<code>HBrowser</code>](#HBrowser)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| event | <code>String</code> | Event types and optional namespaces. |
-| extraParams | <code>Array.&lt;Mixed&gt;</code> | Additional parameters to pass along to the event handler. |
-
-<a name="HBrowser+triggerHandler"></a>
-
-### h().triggerHandler(event, extraParams) ⇒ <code>Mixed</code>
-Execute all handlers attached to an element for an event.
-
-**Kind**: instance method of [<code>HBrowser</code>](#HBrowser)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| event | <code>String</code> | Event types and optional namespaces. |
-| extraParams | <code>Array.&lt;Mixed&gt;</code> | Additional parameters to pass along to the event handler. |
 
 <a name="H"></a>
 
@@ -884,9 +898,9 @@ H helper functions available only for Servers
     * [.writeFileSync](#HServer.writeFileSync)
     * [.exec](#HServer.exec) ⇒ <code>Promise.&lt;stdout, stderr&gt;</code>
     * [.uniqueToken](#HServer.uniqueToken) ⇒ <code>String</code>
-    * [.md](#HServer.md) ⇒ <code>String</code>
-    * [.sha](#HServer.sha) ⇒ <code>String</code>
-    * [.sha](#HServer.sha) ⇒ <code>String</code>
+    * [.md5](#HServer.md5) ⇒ <code>String</code>
+    * [.sha1](#HServer.sha1) ⇒ <code>String</code>
+    * [.sha256](#HServer.sha256) ⇒ <code>String</code>
     * [.encrypt](#HServer.encrypt) ⇒ <code>String</code> \| <code>Buffer</code>
     * [.decrypt](#HServer.decrypt) ⇒ <code>String</code> \| <code>Buffer</code>
     * [.render](#HServer.render) ⇒ <code>Promise.&lt;String&gt;</code>
@@ -999,9 +1013,9 @@ Returns a random *unique* token
 
 **Kind**: static property of [<code>HServer</code>](#HServer)  
 **Returns**: <code>String</code> - Hexadecimal representation of token  
-<a name="HServer.md"></a>
+<a name="HServer.md5"></a>
 
-### H.md ⇒ <code>String</code>
+### H.md5 ⇒ <code>String</code>
 Returns MD5 hash
 
 **Kind**: static property of [<code>HServer</code>](#HServer)  
@@ -1011,9 +1025,9 @@ Returns MD5 hash
 | --- | --- | --- |
 | str | <code>String</code> \| <code>Buffer</code> | Input to get hash of |
 
-<a name="HServer.sha"></a>
+<a name="HServer.sha1"></a>
 
-### H.sha ⇒ <code>String</code>
+### H.sha1 ⇒ <code>String</code>
 Returns SHA1 hash
 
 **Kind**: static property of [<code>HServer</code>](#HServer)  
@@ -1023,9 +1037,9 @@ Returns SHA1 hash
 | --- | --- | --- |
 | str | <code>String</code> \| <code>Buffer</code> | Input to get hash of |
 
-<a name="HServer.sha"></a>
+<a name="HServer.sha256"></a>
 
-### H.sha ⇒ <code>String</code>
+### H.sha256 ⇒ <code>String</code>
 Returns SHA256 hash
 
 **Kind**: static property of [<code>HServer</code>](#HServer)  

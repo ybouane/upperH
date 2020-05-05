@@ -1,10 +1,18 @@
 const gulp = require('gulp');
 const rename = require('gulp-rename');
 const webpack = require('webpack-stream');
+const path = require('path');
 
 gulp.task('default', () => {
 	return gulp.src('./H.browser.js')
-	.pipe(webpack())
+	.pipe(webpack({
+		entry: './H.browser.js',
+		output: {
+			path		: path.resolve(__dirname, 'dist'),
+			filename	: 'H.min.js',
+			library		: 'H',
+		},
+	}))
 	.pipe(rename('H.min.js'))
 	.pipe(gulp.dest('dist/'));
 });

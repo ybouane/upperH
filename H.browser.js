@@ -5,7 +5,7 @@
 * @typicalname H()
 * @name HBrowser
 * @param {String|Function} parameter DOM selector, HTML code that will be used to create new elements, Function to run when document is ready. Similar to $(function(){ }) or $(document).ready(function(){ })
-* @returns {this}
+* @returns {HObject}
 */
 const H = (s) => {
 	if(!s)
@@ -30,40 +30,34 @@ const H = (s) => {
 		return;
 	}
 	if(s instanceof NodeList)
-		s = Array.from(s);
+		s = HObject.from(s);
 	if(!H.isArray(s))
-		s = [s];
-	return addHProps(s.filter(e=>e instanceof Node));
+		s = new HObject(s);
+	return s.filter(e=>e instanceof Node);
 };
 
 require('./H.common.js')(H);
 
-
-
-const addHProps = (arr) => {
-	for(let prop in HMembers)
-		arr[prop] = HMembers[prop];
-	return arr;
-}
-
-const HMembers = {
+/**
+* Collection of DOM Nodes, extends Array
+* @typicalname H()
+*/
+class HObject extends Array {
 	/**
 	* Get the descendants of each element in the current set of matched elements, filtered by a selector.
-	* @memberof HBrowser#
 	* @param {String} selector DOM selector
-	* @returns {this}
+	* @returns {HObject}
 	*/
-	find : function(sel) {
-		return addHProps(this.map(e=>Array.from(e.querySelectorAll(sel))).flat());
-	},
+	find(sel) {
+		return this.map(e=>HObject.from(e.querySelectorAll(sel))).flat();
+	}
 	/**
 	* For each element in the set, get the first element that matches the selector by testing the element itself and traversing up through its ancestors in the DOM tree.
-	* @memberof HBrowser#
 	* @param {String} selector DOM selector
-	* @returns {this}
+	* @returns {HObject}
 	*/
-	closest: function(sel) {
-		var nodes = [];
+	closest(sel) {
+		var nodes = new HObject();
 		var closest = (ele) => {
 			let parent;
 			while (ele) {
@@ -80,16 +74,15 @@ const HMembers = {
 			if(c)
 				nodes.push(c);
 		});
-		return addHProps(nodes);
-	},
+		return nodes;
+	}
 	/**
 	* Get the ancestors of each element in the current set of matched elements, optionally filtered by a selector.
-	* @memberof HBrowser#
 	* @param {String} selector DOM selector
-	* @returns {this}
+	* @returns {HObject}
 	*/
-	parents: function(sel) {
-		var parents = [];
+	parents(sel) {
+		var parents = new HObject();
 		for(let el of this) {
 			while(el) {
 				el = el.parentElement;
@@ -97,137 +90,121 @@ const HMembers = {
 					parents.push(el);
 			}
 		}
-		return addHProps(parents);
-	},
+		return parents;
+	}
 	/**
 	* Get the parent of each element in the current set of matched elements, optionally filtered by a selector.
-	* @memberof HBrowser#
 	* @param {String} selector DOM selector
-	* @returns {this}
+	* @returns {HObject}
 	*/
-	parent: function(sel) {
-		return addHProps(this.get().map(ele=>ele.parentElement).filter(e=>!sel || e.matches(sel)));
-	},
+	parent(sel) {
+		return this.map(ele=>ele.parentElement).filter(e=>!sel || e.is(sel));
+	}
 	/**
 	* Get the children of each element in the set of matched elements, optionally filtered by a selector.
-	* @memberof HBrowser#
 	* @param {String} selector DOM selector
-	* @returns {this}
+	* @returns {HObject}
 	*/
-	children: function(sel) {
-		return addHProps(this.map(e=>e.childNodes.filter(e=>!sel || e.matches(sel))).flat());
-	},
+	children(sel) {
+		return this.map(e=>e.childNodes.filter(e=>!sel || e.matches(sel))).flat();
+	}
 	/**
 	* Get the siblings of each element in the set of matched elements, optionally filtered by a selector.
-	* @memberof HBrowser#
 	* @param {String} selector DOM selector
-	* @returns {this}
+	* @returns {HObject}
 	*/
-	siblings: function(sel) {
-		return addHProps(this.map(e=>{
+	siblings(sel) {
+		return this.map(e=>{
 			return Array.from(e.parentNode.children).filter(ele=>ele!=e && (!sel || ele.matches(sel)));
-		}).flat());
-	},
+		}).flat();
+	}
 	/**
 	* Reduce the set of matched elements to the first in the set.
-	* @memberof HBrowser#
-	* @returns {this}
+	* @returns {HObject}
 	*/
-	first: function() {
-		return addHProps([this[0]]);
-	},
+	first() {
+		return new HObject(this[0]);
+	}
 	/**
 	* Reduce the set of matched elements to the last in the set.
-	* @memberof HBrowser#
-	* @returns {this}
+	* @returns {HObject}
 	*/
-	last: function() {
-		return addHProps([this[this.length-1]]);
-	},
+	last() {
+		return new HObject(this[this.length-1]);
+	}
 
 	/**
 	* Get the value of an attribute for the first element in the set of matched elements.
-	* @memberof HBrowser#
 	* @param {String} name Attribute name
 	* @returns {String}
 	*//**
 	* Set an attribute for the set of matched elements.
-	* @memberof HBrowser#
 	* @param {String} name Attribute name
 	* @param {String} value Attribute value
-	* @returns {this}
+	* @returns {HObject}
 	*/
-	attr: function(attr, val) {
+	attr(attr, val) {
 		if(typeof val=='string') {
 			this.forEach(e=>e.setAttribute(attr, val));
 			return this;
 		} else
 			return this[0] && this[0].getAttribute(attr);
-	},
-
+	}
 	/**
 	* Remove an attribute from each element in the set of matched elements.
-	* @memberof HBrowser#
 	* @param {String} name Attribute name
-	* @returns {this}
+	* @returns {HObject}
 	*/
-	removeAttr: function(attr) {
+	removeAttr(attr) {
 		this.forEach(e=>e.removeAttribute(attr));
 		return this;
-	},
+	}
 	/**
 	* Display the matched elements.
-	* @memberof HBrowser#
-	* @returns {this}
+	* @returns {HObject}
 	*/
-	show: function() {
+	show() {
 		return this.css('display', '');
-	},
+	}
 	/**
 	* Hide the matched elements.
-	* @memberof HBrowser#
-	* @returns {this}
+	* @returns {HObject}
 	*/
-	hide: function() {
+	hide() {
 		return this.css('display', 'none');
-	},
+	}
 	/**
 	* Get the value of a property for the first element in the set of matched elements.
-	* @memberof HBrowser#
 	* @param {String} key Property name
 	* @returns {String}
 	*//**
 	* Set a property for the set of matched elements.
-	* @memberof HBrowser#
 	* @param {String} key Property name
 	* @param {String} value Property value
-	* @returns {this}
+	* @returns {HObject}
 	*/
-	prop: function(key, val) {
+	prop(key, val) {
 		if(typeof val=='string') {
 			this.forEach(e=>e[key]=val);
 			return this;
 		} else
 			return this[0] && this[0][key];
-	},
+	}
 	/**
 	* Get the computed style properties for the first element in the set of matched elements.
-	* @memberof HBrowser#
 	* @param {String} name Property name
 	* @returns {String}
 	*//**
 	* Set a CSS property for the set of matched elements.
-	* @memberof HBrowser#
 	* @param {String} name Property name
 	* @param {String} value Property value
-	* @returns {this}
+	* @returns {HObject}
 	*//**
 	* Set one or more CSS properties for the set of matched elements.
-	* @memberof HBrowser#
 	* @param {Object} properties Key-value pair of properties to set.
-	* @returns {this}
+	* @returns {HObject}
 	*/
-	css: function(key, value, important) {
+	css(key, value, important) {
 		var props = {};
 		if (typeof key == 'string') {
 			if (typeof value === 'undefined')
@@ -253,93 +230,85 @@ const HMembers = {
 			})
 		}
 		return this;
-	},
+	}
 	/**
 	* Insert content, specified by the parameter, to the end of each element in the set of matched elements.
-	* @memberof HBrowser#
 	* @param {Mixed} content Content to insert. (either a selector, HTML content or a DOM Node)
-	* @returns {this}
+	* @returns {HObject}
 	*/
-	append: function(sel) {
+	append(sel) {
 		this.forEach(el=>{
 			var ch = H(sel);
 			for(let child of ch)
 				el.appendChild(child);
 		});
 		return this;
-	},
+	}
 	/**
 	* Insert every element in the set of matched elements to the end of the target(s).
-	* @memberof HBrowser#
 	* @param {Mixed} target Target of the content. (either a selector, HTML content or a DOM Node)
-	* @returns {this}
+	* @returns {HObject}
 	*/
-	appendTo: function(sel) {
+	appendTo(sel) {
 		H(sel).append(this);
 		return this;
-	},
+	}
 	/**
 	* Insert content, specified by the parameter, to the beginning of each element in the set of matched elements.
-	* @memberof HBrowser#
 	* @param {Mixed} content Content to insert. (either a selector, HTML content or a DOM Node)
-	* @returns {this}
+	* @returns {HObject}
 	*/
-	prepend: function(sel) {
+	prepend(sel) {
 		this.forEach(el=>{
 			var ch = H(sel).reverse();
 			for(let child of ch)
 				el.insertBefore(child, el.firstChild);
 		});
 		return this;
-	},
+	}
 	/**
 	* Insert every element in the set of matched elements to the beginning of the target(s).
-	* @memberof HBrowser#
 	* @param {Mixed} target Target of the content. (either a selector, HTML content or a DOM Node)
-	* @returns {this}
+	* @returns {HObject}
 	*/
-	prependTo: function(sel) {
+	prependTo(sel) {
 		H(sel).prepend(this);
 		return this;
-	},
+	}
 	/**
 	* Remove all child nodes of the set of matched elements from the DOM.
-	* @memberof HBrowser#
-	* @returns {this}
+	* @returns {HObject}
 	*/
-	empty: function() {
+	empty() {
 		this.forEach(el=>{
 			while(el.firstChild)
 				el.removeChild(el.firstChild);
 		});
 		return this;
-	},
+	}
 	/**
 	* Remove the set of matched elements from the DOM.
-	* @memberof HBrowser#
 	* @returns {void}
 	*/
-	remove: function(sel) {
+	remove(sel) {
 		this.forEach(el=>{
 			el.parentNode.removeChild(el);
 		});
 		return;
-	},
+	}
 	/**
 	* Reduce the set of matched elements to the one at the specified index.
-	* @memberof HBrowser#
 	* @param {Number} index Index of the element
-	* @returns {this}
+	* @returns {HObject}
 	*/
-	eq: function(index) {
-		return addHProps([this[index]]);
-	},
+	eq(index) {
+		return new HObject(this[index]);
+	}
 	/**
 	* Search for a given element from among the matched elements.
-	* @memberof HBrowser#
 	* @returns {Number}
 	*/
-	index: function() {
+	index() {
 		if (!this[0])
 			return -1;
 		var cEle = this[0];
@@ -349,162 +318,145 @@ const HMembers = {
 			cEle = cEle.previousElementSibling;
 		}
 		return index;
-	},
+	}
 
 	/**
 	* Get the HTML contents of the first element in the set of matched elements.
-	* @memberof HBrowser#
 	* @returns {String}
 	*//**
 	* Set the HTML contents of each element in the set of matched elements.
-	* @memberof HBrowser#
 	* @param {String} content HTML content
-	* @returns {this}
+	* @returns {HObject}
 	*/
-	html: function(val) {
+	html(val) {
 		if(typeof val=='string') {
 			this.forEach(e=>e.innerHTML=val);
 			return this;
 		} else
 			return this[0] && this[0].innerHTML;
-	},
+	}
 	/**
 	* Get the combined text contents of each element in the set of matched elements, including their descendants.
-	* @memberof HBrowser#
 	* @returns {String}
 	*//**
 	* Set the content of each element in the set of matched elements to the specified text.
-	* @memberof HBrowser#
 	* @param {String} content Text content
-	* @returns {this}
+	* @returns {HObject}
 	*/
-	text: function(val) {
+	text(val) {
 		if(typeof val=='string') {
 			this.forEach(e=>e.textContent=val);
 			return this;
 		} else
 			return this[0] && this[0].textContent;
-	},
+	}
 	/**
 	* Get the current value of the first element in the set of matched elements.
-	* @memberof HBrowser#
 	* @returns {String}
 	*//**
 	* Set the value of each element in the set of matched elements.
-	* @memberof HBrowser#
 	* @param {String} value Value
-	* @returns {this}
+	* @returns {HObject}
 	*/
-	val: function(val) {
+	val(val) {
 		if(typeof val=='string') {
 			this.forEach(e=>e.value=val);
 			return this;
 		} else
 			return this[0] && this[0].value;
-	},
+	}
 	/**
 	* Iterate over a jQuery object, executing a function for each matched element.
-	* @memberof HBrowser#
 	* @param {Function} function Function to execute
-	* @returns {this}
+	* @returns {HObject}
 	*/
-	each: function(cb) {
+	each(cb) {
 		this.forEach((e, i)=>cb.call(H(e), e, i));
 		return this;
-	},
+	}
 	/**
 	* Retrieve the elements matched as a vanilla Array.
-	* @memberof HBrowser#
 	* @returns {Node}
 	*//**
 	* Retrieve one of the elements matched.
-	* @memberof HBrowser#
 	* @param {Number} index Index of the element to return
 	* @returns {Node}
 	*/
-	get: function(index) {
+	get(index) {
 		if(index)
 			return this[index];
 		else
-			return [...this];
-	},
+			return Array.from(this);
+	}
 	/**
 	* Adds the specified class(es) to each element in the set of matched elements
-	* @memberof HBrowser#
 	* @param {String} className Class name
-	* @returns {this}
+	* @returns {HObject}
 	*/
-	addClass: function(c) {
+	addClass(c) {
 		c.trim().split(' ').forEach(c=>{
 			this.forEach(e=>e.classList.add(c));
 		});
 		return this;
-	},
+	}
 	/**
 	* Remove a single class, multiple classes, or all classes from each element in the set of matched elements.
-	* @memberof HBrowser#
 	* @param {String} className Class name
-	* @returns {this}
+	* @returns {HObject}
 	*/
-	removeClass: function(c) {
+	removeClass(c) {
 		c.trim().split(' ').forEach(c=>{
 			this.forEach(e=>e.classList.remove(c));
 		});
 		return this;
-	},
+	}
 	/**
 	* Add or remove one or more classes from each element in the set of matched elements, depending on either the class's presence or the value of the state argument.
-	* @memberof HBrowser#
 	* @param {String} className Class name
-	* @returns {this}
+	* @returns {HObject}
 	*/
-	toggleClass: function(c) {
+	toggleClass(c) {
 		c.trim().split(' ').forEach(c=>{
 			this.forEach(e=>e.classList.toggle(c));
 		});
 		return this;
-	},
+	}
 	/**
 	* Determine whether any of the matched elements are assigned the given class.
-	* @memberof HBrowser#
 	* @param {String} className Class name
 	* @returns {Boolean}
 	*/
-	hasClass: function(c) {
+	hasClass(c) {
 		return this.some(e=>e.classList.contains(c));
-	},
+	}
 	/**
 	* Reduce the set of matched elements to those that match the selector.
-	* @memberof HBrowser#
 	* @param {String} selector DOM Selector
-	* @returns {this}
+	* @returns {HObject}
 	*//**
 	* Reduce the set of matched elements to those that match the function's test.
-	* @memberof HBrowser#
 	* @param {Function} fn Function used as a test for each elkement in the set.
-	* @returns {this}
+	* @returns {HObject}
 	*/
-	filter: function(cb) {
+	filter(cb) {
 		if(typeof cb == 'string')
-			return addHProps(this.filter(e=>e.matches(cb)));
+			return HObject.from(this.get().filter(e=>e.matches(cb)));
 		else
-			return addHProps(this.filter((e, i)=>cb.call(H(e), e, i)));
-	},
+			return HObject.from(this.get().filter((e, i)=>cb.call(new HObject(e), e, i)));
+	}
 	/**
 	* Check the current matched set of elements against a selector and return true if at least one of these elements matches the given arguments.
-	* @memberof HBrowser#
 	* @param {String} selector DOM Selector
 	* @returns {Boolean}
 	*/
-	is: function(sel) {
+	is(sel) {
 		return this.some(e=>e.matches(sel));
-	},
+	}
 	/**
 	* Get the current coordinates of the first element in the set of matched elements, relative to the document.
-	* @memberof HBrowser#
 	* @returns {Object} \{top, left\}
 	*/
-	offset: function() {
+	offset() {
 		if(!this[0])
 			return undefined;
 		var rect = this[0].getBoundingClientRect();
@@ -512,18 +464,17 @@ const HMembers = {
 			top: rect.top + window.scrollY,
 			left: rect.left + window.scrollX
 		};
-	},
+	}
 
 	/**
 	* Attach an event handler function for one or more events to the selected elements.
-	* @memberof HBrowser#
 	* @param {String} events One or more space-separated event types and optional namespaces.
 	* @param {String} selector A selector string to filter the descendants of the selected elements that trigger the event.
 	* @param {Function} callback Event Handler
 	* @param {Object} options Additional options for .addEventListener
-	* @returns {this}
+	* @returns {HObject}
 	*/
-	on: function(events, sel, cb, opts) {
+	on(events, sel, cb, opts) {
 		if(typeof sel!='string') {
 			opts = cb;
 			cb = sel;
@@ -561,17 +512,16 @@ const HMembers = {
 			});
 		});
 		return this;
-	},
+	}
 	/**
 	* Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
-	* @memberof HBrowser#
 	* @param {String} events One or more space-separated event types and optional namespaces.
 	* @param {String} selector A selector string to filter the descendants of the selected elements that trigger the event.
 	* @param {Function} callback Event Handler
 	* @param {Object} options Additional options for .addEventListener
-	* @returns {this}
+	* @returns {HObject}
 	*/
-	one: function(events, sel, cb, opts) {
+	one(events, sel, cb, opts) {
 		if(typeof sel!='string') {
 			cb = cb || {};
 			cb.once = true;
@@ -580,15 +530,14 @@ const HMembers = {
 			opts.once = true;
 		}
 		return this.on(events, sel, cb, opts);
-	},
+	}
 	/**
 	* Remove an event handler.
-	* @memberof HBrowser#
 	* @param {String} events One or more space-separated event types and optional namespaces.
 	* @param {Function} callback Event Handler
-	* @returns {this}
+	* @returns {HObject}
 	*/
-	off: function(events, cb) {
+	off(events, cb) {
 		events.trim().split(' ').forEach((event) => {
 			let parts = event.split('.');
 			let eventName = parts.shift() || null;
@@ -612,15 +561,14 @@ const HMembers = {
 			});
 		});
 		return this;
-	},
+	}
 	/**
 	* Execute all handlers and behaviors attached to the matched elements for the given event type.
-	* @memberof HBrowser#
 	* @param {String} event Event types and optional namespaces.
 	* @param {Array<Mixed>} extraParams Additional parameters to pass along to the event handler.
-	* @returns {this}
+	* @returns {HObject}
 	*/
-	trigger: function(event, params) {
+	trigger(event, params) {
 		let parts = event.split('.');
 		let eventName = parts.shift() || null;
 		let namespace = parts.join('.') || null;
@@ -640,15 +588,14 @@ const HMembers = {
 				ele.dispatchEvent(event);
 		}
 		return this;
-	},
+	}
 	/**
 	* Execute all handlers attached to an element for an event.
-	* @memberof HBrowser#
 	* @param {String} event Event types and optional namespaces.
 	* @param {Array<Mixed>} extraParams Additional parameters to pass along to the event handler.
 	* @returns {Mixed}
 	*/
-	triggerHandler: function(event, params) {
+	triggerHandler(event, params) {
 		let parts = event.split('.');
 		let eventName = parts.shift() || null;
 		let namespace = parts.join('.') || null;
@@ -666,7 +613,8 @@ const HMembers = {
 			});
 		});
 		return out;
-	},
+	}
 };
+H.HObject = HObject;
 
 module.exports = H;
