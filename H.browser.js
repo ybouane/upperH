@@ -23,10 +23,10 @@ const H = (s) => {
 		} else
 			s = document.querySelectorAll(s);
 	} else if(typeof s == 'function') {
-		if (document.readyState !== 'loading')
-			s();
-		else
+		if (document.readyState === 'loading')
 			document.addEventListener('DOMContentLoaded', s);
+		else
+			s();
 		return;
 	}
 	if(s instanceof NodeList)
@@ -537,7 +537,7 @@ class HObject extends Array {
 		var this_ = this;
 		var handler = function(e) {
 			if(sel) {
-				if(H(e.target).closest(sel).length==0) // Skip if it doesn't have a parent matching sel
+				if(!e.target.matches(sel) && H(e.target).closest(sel).length==0) // Skip if it doesn't have a parent matching sel
 					return;
 			}
 			return cb.call(H(this), e, ...(H.isArray(e.detail)?e.detail:[]));
