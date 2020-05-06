@@ -631,7 +631,9 @@ class HObject extends Array {
 		if(!eventName)
 			return this;
 		var event = new CustomEvent(eventName, {
-			detail : params
+			detail : params,
+			bubbles: true,
+			cancelable: true,
 		});
 		for(let ele of this) {
 			if(namespace) {
