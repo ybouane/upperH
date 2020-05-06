@@ -18,7 +18,7 @@ const H = (s) => {
 			else {
 				var container = document.createElement('div');
 				container.innerHTML = s;
-				s = HObject.from(container.childNodes);
+				s = HObject.from(container.children);
 			}
 		} else
 			s = document.querySelectorAll(s);
@@ -108,7 +108,7 @@ class HObject extends Array {
 	* @returns {HObject}
 	*/
 	children(sel) {
-		return this.map(e=>Array.from(e.childNodes).filter(e=>(e instanceof Node) && (!sel || e.matches(sel)))).flat();
+		return this.map(e=>Array.from(e.children).filter(e=>!sel || e.matches(sel))).flat();
 	}
 	/**
 	* Get the siblings of each element in the set of matched elements, optionally filtered by a selector.
