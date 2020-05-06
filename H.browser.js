@@ -18,7 +18,7 @@ const H = (s) => {
 			else {
 				var container = document.createElement('div');
 				container.innerHTML = s;
-				s = container.childNodes;
+				s = HObject.from(container.childNodes);
 			}
 		} else
 			s = document.querySelectorAll(s);
@@ -33,6 +33,8 @@ const H = (s) => {
 		s = HObject.from(s);
 	if(!H.isArray(s))
 		s = new HObject(s);
+	if(!(s instanceof HObject)) // In case it is just a regular array
+		s = HObject.from(s);
 	return s.filter(e=>e instanceof Node);
 };
 
