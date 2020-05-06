@@ -536,11 +536,17 @@ class HObject extends Array {
 		opts = opts || {};
 		var this_ = this;
 		var handler = function(e) {
+			var $target = this;
 			if(sel) {
-				if(!e.target.matches(sel) && H(e.target).closest(sel).length==0) // Skip if it doesn't have a parent matching sel
-					return;
+				if(e.target.matches(sel)) {
+					$target = e.target;
+				} else {
+					$target = H(e.target).closest(sel);
+					if($target.length==0) // Skip if it doesn't have a parent matching sel
+						return;
+				}
 			}
-			return cb.call(H(this), e, ...(H.isArray(e.detail)?e.detail:[]));
+			return cb.call(H($target), e, ...(H.isArray(e.detail)?e.detail:[]));
 		};
 		events.trim().split(' ').forEach((event) => {
 			let parts = event.split('.');
