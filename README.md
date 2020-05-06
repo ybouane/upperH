@@ -106,6 +106,12 @@ Collection of DOM Nodes, extends Array
     * [.appendTo(target)](#HObject+appendTo) ⇒ [<code>HObject</code>](#HObject)
     * [.prepend(content)](#HObject+prepend) ⇒ [<code>HObject</code>](#HObject)
     * [.prependTo(target)](#HObject+prependTo) ⇒ [<code>HObject</code>](#HObject)
+    * [.insertBefore(target)](#HObject+insertBefore) ⇒ [<code>HObject</code>](#HObject)
+    * [.before(content)](#HObject+before) ⇒ [<code>HObject</code>](#HObject)
+    * [.insertAfter(target)](#HObject+insertAfter) ⇒ [<code>HObject</code>](#HObject)
+    * [.after(content)](#HObject+after) ⇒ [<code>HObject</code>](#HObject)
+    * [.wrap(element)](#HObject+wrap) ⇒ [<code>HObject</code>](#HObject)
+    * [.wrapInner(element)](#HObject+wrapInner) ⇒ [<code>HObject</code>](#HObject)
     * [.empty()](#HObject+empty) ⇒ [<code>HObject</code>](#HObject)
     * [.remove()](#HObject+remove) ⇒ <code>void</code>
     * [.eq(index)](#HObject+eq) ⇒ [<code>HObject</code>](#HObject)
@@ -401,6 +407,72 @@ Insert every element in the set of matched elements to the beginning of the targ
 | Param | Type | Description |
 | --- | --- | --- |
 | target | <code>Mixed</code> | Target of the content. (either a selector, HTML content or a DOM Node) |
+
+<a name="HObject+insertBefore"></a>
+
+### h().insertBefore(target) ⇒ [<code>HObject</code>](#HObject)
+Insert every element in the set of matched elements before the target.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| target | <code>String</code> | DOM selector |
+
+<a name="HObject+before"></a>
+
+### h().before(content) ⇒ [<code>HObject</code>](#HObject)
+Insert content, specified by the parameter, before each element in the set of matched elements
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| content | <code>String</code> | HTML code or DOM selector |
+
+<a name="HObject+insertAfter"></a>
+
+### h().insertAfter(target) ⇒ [<code>HObject</code>](#HObject)
+Insert every element in the set of matched elements after the target.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| target | <code>String</code> | DOM selector |
+
+<a name="HObject+after"></a>
+
+### h().after(content) ⇒ [<code>HObject</code>](#HObject)
+Insert content, specified by the parameter, after each element in the set of matched elements
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| content | <code>String</code> | HTML code or DOM selector |
+
+<a name="HObject+wrap"></a>
+
+### h().wrap(element) ⇒ [<code>HObject</code>](#HObject)
+Wrap an HTML structure around each element in the set of matched elements.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| element | <code>String</code> | Wrapping element. |
+
+<a name="HObject+wrapInner"></a>
+
+### h().wrapInner(element) ⇒ [<code>HObject</code>](#HObject)
+Wrap an HTML structure around the content of each element in the set of matched elements.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| element | <code>String</code> | Wrapping element. |
 
 <a name="HObject+empty"></a>
 

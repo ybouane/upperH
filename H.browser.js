@@ -507,7 +507,7 @@ class HObject extends Array {
 	* @returns {Node}
 	*/
 	get(index) {
-		if(index)
+		if(index!=undefined)
 			return this[index];
 		else
 			return Array.from(this);
