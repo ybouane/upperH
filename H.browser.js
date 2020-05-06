@@ -326,6 +326,80 @@ class HObject extends Array {
 		return this;
 	}
 	/**
+	* Insert every element in the set of matched elements before the target.
+	* @param {String} target DOM selector
+	* @returns {HObject}
+	*/
+	insertBefore(sel) {
+		H(sel).before(this);
+		return this;
+	}
+	/**
+	* Insert content, specified by the parameter, before each element in the set of matched elements
+	* @param {String} content HTML code or DOM selector
+	* @returns {HObject}
+	*/
+	before(content) {
+		this.forEach(e=>{
+			var $content = H(content);
+			$content.forEach(c=>{
+				e.parentNode.insertBefore(c, e);
+			});
+		});
+		return this;
+	}
+	/**
+	* Insert every element in the set of matched elements after the target.
+	* @param {String} target DOM selector
+	* @returns {HObject}
+	*/
+	insertAfter(sel) {
+		H(sel).after(this);
+		return this;
+	}
+	/**
+	* Insert content, specified by the parameter, after each element in the set of matched elements
+	* @param {String} content HTML code or DOM selector
+	* @returns {HObject}
+	*/
+	after(content) {
+		this.forEach(e=>{
+			var $content = H(content).reverse();
+			$content.forEach(c=>{
+				var bef = e.nextSibling;
+				if(bef)
+					bef.parentNode.insertBefore(c, bef);
+				else
+					e.parentNode.appendChild(c);
+			});
+		});
+		return this;
+	}
+	/**
+	* Wrap an HTML structure around each element in the set of matched elements.
+	* @param {String} element Wrapping element.
+	* @returns {HObject}
+	*/
+	wrap(element) {
+		this.each(function(){
+			H(element).eq(0).insertBefore(this).append(this);
+		});
+		return this;
+	}
+	/**
+	* Wrap an HTML structure around the content of each element in the set of matched elements.
+	* @param {String} element Wrapping element.
+	* @returns {HObject}
+	*/
+	wrapInner(element) {
+		this.forEach((t)=>{
+			var w = H(element).get(0);
+			Array.from(t.childNodes).forEach(e=>w.appendChild(e));
+			t.appendChild(w);
+		});
+		return this;
+	}
+	/**
 	* Remove all child nodes of the set of matched elements from the DOM.
 	* @returns {HObject}
 	*/
