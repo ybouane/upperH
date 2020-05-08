@@ -194,7 +194,7 @@ class HObject extends Array {
 	* @returns {HObject}
 	*/
 	attr(attr, val) {
-		if(typeof val=='string') {
+		if(typeof val!='undefined') {
 			this.forEach(e=>e.setAttribute(attr, val));
 			return this;
 		} else
