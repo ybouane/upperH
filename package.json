@@ -1,6 +1,6 @@
 {
   "name": "upperh",
-  "version": "2.1.8",
+  "version": "2.2.0",
   "description": "Collection of helper functions to make starting a frontend/backend JS project faster.",
   "main": "H.server.js",
   "browser": "H.browser.js",
