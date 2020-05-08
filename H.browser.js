@@ -257,27 +257,25 @@ class HObject extends Array {
 	css(key, value, important) {
 		var props = {};
 		if (typeof key == 'string') {
-			if (typeof value === 'undefined')
-				return window.getComputedStyle(this[0]).getPropertyValue(key);
+			if (typeof value === 'undefined') {
+				let kHyphen = key.indexOf('--')==0?key:(key.replace(/([a-z])([A-Z])/g, function(matches, l1, l2) {// To hyphen-case
+					return l1+'-'+l2;
+				}).toLowerCase());
+				return window.getComputedStyle(this[0]).getPropertyValue(kHyphen);
+			}
 			props = {
 				[key]	: value
 			};
 		} else if (H.isObject(key))
 			props = key;
 		for(let k in props) {
-			let kHyphen = k.replace(/([a-z])([A-Z])/g, function(matches, l1, l2) { // To hyphen-case
+			let kHyphen = k.indexOf('--')==0?k:(k.replace(/([a-z])([A-Z])/g, function(matches, l1, l2) {// To hyphen-case
 				return l1+'-'+l2;
-			}).toLowerCase();
-			let kCamel = k.replace(/\-([a-z])/gi, function(matches, l) { // To hyphen-case
-				return l.toUpperCase();
-			});
-			this.forEach((ele) => {
-				try {
-					window.getComputedStyle(ele).setProperty(kHyphen, props[k], important?'important':undefined);
-				} catch (err){
-					ele.style[kCamel] = props[k];
-				}
-			})
+			}).toLowerCase());
+			console.log(kHyphen, props[k]);
+			for(let ele of this) {
+				ele.style.setProperty(kHyphen, props[k], important?'important':undefined);
+			}
 		}
 		return this;
 	}
