@@ -234,7 +234,7 @@ class HObject extends Array {
 	* @returns {HObject}
 	*/
 	prop(key, val) {
-		if(typeof val=='string') {
+		if(typeof val!='undefined') {
 			this.forEach(e=>e[key]=val);
 			return this;
 		} else
@@ -450,7 +450,7 @@ class HObject extends Array {
 	* @returns {HObject}
 	*/
 	html(val) {
-		if(typeof val=='string') {
+		if(typeof val!='undefined') {
 			this.forEach(e=>e.innerHTML=val);
 			return this;
 		} else
@@ -465,7 +465,7 @@ class HObject extends Array {
 	* @returns {HObject}
 	*/
 	text(val) {
-		if(typeof val=='string') {
+		if(typeof val!='undefined') {
 			this.forEach(e=>e.textContent=val);
 			return this;
 		} else
@@ -480,7 +480,7 @@ class HObject extends Array {
 	* @returns {HObject}
 	*/
 	val(val) {
-		if(typeof val=='string') {
+		if(typeof val!='undefined') {
 			this.forEach(e=>e.value=val);
 			return this;
 		} else
