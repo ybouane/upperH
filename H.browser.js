@@ -493,7 +493,7 @@ class HObject extends Array {
 	*/
 	each(cb) {
 		for(let i in this) {
-			if(!cb.call(H(this[i]), this[i], i))
+			if(cb.call(H(this[i]), this[i], i)===false)
 				break;
 		}
 		return this;
