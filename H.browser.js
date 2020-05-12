@@ -492,7 +492,10 @@ class HObject extends Array {
 	* @returns {HObject}
 	*/
 	each(cb) {
-		this.forEach((e, i)=>cb.call(H(e), e, i));
+		for(let i in this) {
+			if(!cb.call(H(this[i]), this[i], i))
+				break;
+		}
 		return this;
 	}
 	/**
