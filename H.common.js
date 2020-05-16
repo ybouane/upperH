@@ -159,7 +159,7 @@ module.exports = (H) => {
 		if(!pointer)
 			return undefined;
 		var failed = String(path).split('.').find((p) => {
-			if(Object(pointer)===pointer && H.hasOwnProp(pointer, p))
+			if((H.isObject(pointer) || H.isArray(pointer)) && H.hasOwnProp(pointer, p))
 				pointer = pointer[p];
 			else
 				return true;
@@ -182,7 +182,7 @@ module.exports = (H) => {
 		var failed = path.find((p, i) => {
 			if(!H.hasOwnProp(pointer, p))
 				pointer[p] = {};
-			if((Object(pointer[p])!==pointer[p] || Array.isArray(pointer[p])))
+			if(!H.isObject(pointer[p]))
 				pointer[p] = {};
 			pointer = pointer[p];
 		});
