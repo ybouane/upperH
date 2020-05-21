@@ -749,6 +749,22 @@ class HObject extends Array {
 };
 H.HObject = HObject;
 
+var loadedScripts = [];
+/**
+* Loads a JS script
+* @async
+* @param {String} url JS script url
+* @param {Boolean} [reload=false] If set to true, the scrippt will be appended regardless if it was previously loaded or not
+*/
+H.loadScript = (url, forceReload=false) => {
+	if(forceReload || !loadedScripts.includes(url)) {
+		var script= document.createElement('script');
+		script.type= 'text/javascript';
+		script.src = url;
+		script.async = true;
+		document.body.appendChild(script);
+	}
+}
 
 H._fetch = window.fetch.bind(window);
 module.exports = H;
