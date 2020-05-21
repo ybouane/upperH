@@ -763,8 +763,27 @@ H.loadScript = (url, forceReload=false) => {
 		script.src = url;
 		script.async = true;
 		document.body.appendChild(script);
+		loadedScripts.push(url);
 	}
-}
+};
+
+var loadedStylesheets = [];
+/**
+* Loads a CSS stylesheet
+* @async
+* @param {String} url CSS stylesheet url
+* @param {Boolean} [reload=false] If set to true, the stylesheet will be reloaded regardless if it was previously loaded or not
+*/
+H.loadStylesheet = (url, forceReload=false) => {
+	if(forceReload || !loadedStylesheets.includes(url)) {
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = url;
+		document.head.appendChild(link);
+		loadedStylesheets.push(url);
+	}
+};
 
 H._fetch = window.fetch.bind(window);
 module.exports = H;

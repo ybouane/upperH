@@ -752,6 +752,8 @@ H helper functions available in both Servers and browsers
     * [.isArray](#H.isArray) ⇒ <code>Boolean</code>
     * [.regexp](#H.regexp)
     * [.Error](#H.Error)
+    * [.loadScript(url, [reload])](#H.loadScript)
+    * [.loadStylesheet(url, [reload])](#H.loadStylesheet)
     * [.isObject(variable)](#H.isObject) ⇒ <code>Boolean</code>
     * [.delay(time)](#H.delay) ⇒ <code>Promise</code>
     * [.timestampMs()](#H.timestampMs) ⇒ <code>Number</code>
@@ -797,6 +799,30 @@ Custom Error constructor
 | --- | --- | --- |
 | message | <code>String</code> | Error message |
 | code | <code>Number</code> | Error code. |
+
+<a name="H.loadScript"></a>
+
+### H.loadScript(url, [reload])
+Loads a JS script
+
+**Kind**: static method of [<code>H</code>](#H)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| url | <code>String</code> |  | JS script url |
+| [reload] | <code>Boolean</code> | <code>false</code> | If set to true, the scrippt will be appended regardless if it was previously loaded or not |
+
+<a name="H.loadStylesheet"></a>
+
+### H.loadStylesheet(url, [reload])
+Loads a CSS stylesheet
+
+**Kind**: static method of [<code>H</code>](#H)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| url | <code>String</code> |  | CSS stylesheet url |
+| [reload] | <code>Boolean</code> | <code>false</code> | If set to true, the stylesheet will be reloaded regardless if it was previously loaded or not |
 
 <a name="H.isObject"></a>
 
