@@ -755,16 +755,26 @@ var loadedScripts = [];
 * @async
 * @param {String} url JS script url
 * @param {Boolean} [reload=false] If set to true, the scrippt will be appended regardless if it was previously loaded or not
+* @returns {Promise} Resolves when script is loaded
 */
 H.loadScript = (url, forceReload=false) => {
-	if(forceReload || !loadedScripts.includes(url)) {
-		var script= document.createElement('script');
-		script.type= 'text/javascript';
-		script.src = url;
-		script.async = true;
-		document.body.appendChild(script);
-		loadedScripts.push(url);
-	}
+	return new Promise(function(resolve, reject) {
+		if(forceReload || !loadedScripts.includes(url)) {
+			var script= document.createElement('script');
+			script.type= 'text/javascript';
+			script.onerror = (e) => {
+				reject(e);
+			};
+			script.onload = () => {
+				resolve();
+			};
+			script.async = true;
+			script.src = url;
+			document.body.appendChild(script);
+			loadedScripts.push(url);
+		} else
+			resolve();
+	});
 };
 
 var loadedStylesheets = [];
@@ -773,16 +783,26 @@ var loadedStylesheets = [];
 * @async
 * @param {String} url CSS stylesheet url
 * @param {Boolean} [reload=false] If set to true, the stylesheet will be reloaded regardless if it was previously loaded or not
+* @returns {Promise} Resolves when stylesheet is loaded
 */
 H.loadStylesheet = (url, forceReload=false) => {
-	if(forceReload || !loadedStylesheets.includes(url)) {
-		var link = document.createElement('link');
-		link.rel = 'stylesheet';
-		link.type = 'text/css';
-		link.href = url;
-		document.head.appendChild(link);
-		loadedStylesheets.push(url);
-	}
+	return new Promise(function(resolve, reject) {
+		if(forceReload || !loadedStylesheets.includes(url)) {
+			var link = document.createElement('link');
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.onerror = (e) => {
+				reject(e);
+			};
+			link.onload = () => {
+				resolve();
+			};
+			link.href = url;
+			document.head.appendChild(link);
+			loadedStylesheets.push(url);
+		} else
+			resolve();
+	});
 };
 
 H._fetch = window.fetch.bind(window);

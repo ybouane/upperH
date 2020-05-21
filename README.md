@@ -752,8 +752,8 @@ H helper functions available in both Servers and browsers
     * [.isArray](#H.isArray) ⇒ <code>Boolean</code>
     * [.regexp](#H.regexp)
     * [.Error](#H.Error)
-    * [.loadScript(url, [reload])](#H.loadScript)
-    * [.loadStylesheet(url, [reload])](#H.loadStylesheet)
+    * [.loadScript(url, [reload])](#H.loadScript) ⇒ <code>Promise</code>
+    * [.loadStylesheet(url, [reload])](#H.loadStylesheet) ⇒ <code>Promise</code>
     * [.isObject(variable)](#H.isObject) ⇒ <code>Boolean</code>
     * [.delay(time)](#H.delay) ⇒ <code>Promise</code>
     * [.timestampMs()](#H.timestampMs) ⇒ <code>Number</code>
@@ -802,10 +802,11 @@ Custom Error constructor
 
 <a name="H.loadScript"></a>
 
-### H.loadScript(url, [reload])
+### H.loadScript(url, [reload]) ⇒ <code>Promise</code>
 Loads a JS script
 
 **Kind**: static method of [<code>H</code>](#H)  
+**Returns**: <code>Promise</code> - Resolves when script is loaded  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -814,10 +815,11 @@ Loads a JS script
 
 <a name="H.loadStylesheet"></a>
 
-### H.loadStylesheet(url, [reload])
+### H.loadStylesheet(url, [reload]) ⇒ <code>Promise</code>
 Loads a CSS stylesheet
 
 **Kind**: static method of [<code>H</code>](#H)  
+**Returns**: <code>Promise</code> - Resolves when stylesheet is loaded  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
