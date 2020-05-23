@@ -226,8 +226,9 @@ module.exports = (H) => {
 	* @param {String} [outFormat="json"] Format of the output response (json|text|buffer|stream).
 	* @returns {Promise<String>} Response body
 	*/
-	H.httpRequest = async (method, url, payload={}, headers={}, extras={}, inFormat='json', outFormat='json') => {
+	H.httpRequest = async (method='GET', url, payload={}, headers={}, extras={}, inFormat='json', outFormat='json') => {
 		var getPayload = '';
+		method = method.toUpperCase(); // making sure...
 		if(method=='GET') {
 			getPayload = '?'+qs.stringify(payload);
 			if(getPayload=='?')
