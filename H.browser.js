@@ -125,14 +125,14 @@ class HObject extends Array {
 	* @returns {HObject}
 	*/
 	first() {
-		return new HObject(this[0]);
+		return H(this[0]);
 	}
 	/**
 	* Reduce the set of matched elements to the last in the set.
 	* @returns {HObject}
 	*/
 	last() {
-		return new HObject(this[this.length-1]);
+		return H(this[this.length-1]);
 	}
 	/**
 	* Get the immediately preceding sibling of each element in the set of matched elements. If a selector is provided, it retrieves the previous sibling only if it matches that selector.
@@ -423,7 +423,7 @@ class HObject extends Array {
 	* @returns {HObject}
 	*/
 	eq(index) {
-		return new HObject(this[index]);
+		return H(this[index]);
 	}
 	/**
 	* Search for a given element from among the matched elements.
