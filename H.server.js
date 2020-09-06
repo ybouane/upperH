@@ -272,7 +272,7 @@ H.input = async (q, muted=false) => {
 * @name waitForKey
 */
 H.waitForKey = async (q='') => {
-	return await input(q, true);
+	return await H.input(q, true);
 };
 
 var keyPressCallbacks = [];
