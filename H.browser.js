@@ -59,7 +59,8 @@ class HObject extends Array {
 	* @returns {HObject}
 	*/
 	closest(sel) {
-		var nodes = new HObject();
+		return this.map(e=>HObject.from(e.closest(sel))).filter(e=>e);
+		/*var nodes = new HObject();
 		var closest = (ele) => {
 			let parent;
 			while (ele) {
@@ -76,7 +77,7 @@ class HObject extends Array {
 			if(c)
 				nodes.push(c);
 		});
-		return nodes;
+		return nodes;*/
 	}
 	/**
 	* Get the ancestors of each element in the current set of matched elements, optionally filtered by a selector.
