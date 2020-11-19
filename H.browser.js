@@ -215,7 +215,7 @@ class HObject extends Array {
 	* @returns {HObject}
 	*/
 	show() {
-		return this.css('display', '');
+		return this.css('display', 'block');
 	}
 	/**
 	* Hide the matched elements.
