@@ -21,7 +21,6 @@ gulp.task('default', () => {
 
 
 const jsdoc2md = require('jsdoc-to-markdown')
-const fs = require('jsdoc-to-markdown')
 const H = require('./H.server.js');
 gulp.task('docs', async (done) => {
 	var output = await jsdoc2md.render({

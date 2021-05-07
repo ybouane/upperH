@@ -1,6 +1,6 @@
 {
   "name": "upperh",
-  "version": "2.3.6",
+  "version": "2.3.7",
   "description": "Collection of helper functions to make starting a frontend/backend JS project faster.",
   "main": "H.server.js",
   "browser": "H.browser.js",
@@ -27,13 +27,14 @@
   "homepage": "https://github.com/ybouane/upperH#readme",
   "dependencies": {
     "node-fetch": "^2.6.1",
-    "nunjucks": "^3.2.2",
-    "qs": "^6.9.4"
+    "nunjucks": "^3.2.3",
+    "qs": "^6.10.1"
   },
   "devDependencies": {
     "gulp": "^4.0.2",
     "gulp-documentation": "^3.2.1",
     "gulp-rename": "^2.0.0",
+    "jsdoc-to-markdown": "^7.0.1",
     "webpack-stream": "^6.1.0"
   }
 }
