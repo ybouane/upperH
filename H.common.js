@@ -272,10 +272,17 @@ module.exports = (H) => {
 				}
 			} else {
 				rethrow = true;
-				if(response.status != 200)
-					throw new H.Error('Error '+response.status+(response.statusText?': '+response.statusText:''));
-				else
-					throw new H.Error('A network error occured.');
+				let contentType = (response.headers.get('content-type') || '').split(';').shift();
+				let response_ = response;
+				try {
+					if(contentType=='application/json')
+					response_ = await response.json();
+				} catch(e) {}
+
+				if(response.status != 200) {
+					throw new H.Error('Error '+response.status+(response.statusText?': '+response.statusText:(response.message?': '+response.message:'')), response.status, response_);
+				} else
+					throw new H.Error('A network error occured.', response.status, response_);
 			}
 		} catch(e) {
 			if(rethrow)
@@ -339,10 +346,11 @@ module.exports = (H) => {
 
 
 	class ErrorMessage extends Error {
-		constructor(message, code=500) {
+		constructor(message, code=500, response) {
 			super(message);
 			this.errorMessage = message;
 			this.statusCode = code;
+			this.response = response;
 		}
 		toString() {
 			return this.errorMessage;
