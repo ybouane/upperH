@@ -82,6 +82,7 @@ Collection of DOM Nodes, extends Array
 * [HObject](#HObject)
     * [.find(selector)](#HObject+find) ⇒ [<code>HObject</code>](#HObject)
     * [.closest(selector)](#HObject+closest) ⇒ [<code>HObject</code>](#HObject)
+    * [.contains(selector)](#HObject+contains) ⇒ [<code>HObject</code>](#HObject)
     * [.parents(selector)](#HObject+parents) ⇒ [<code>HObject</code>](#HObject)
     * [.parent(selector)](#HObject+parent) ⇒ [<code>HObject</code>](#HObject)
     * [.children(selector)](#HObject+children) ⇒ [<code>HObject</code>](#HObject)
@@ -136,8 +137,8 @@ Collection of DOM Nodes, extends Array
     * [.on(events, selector, callback, options)](#HObject+on) ⇒ [<code>HObject</code>](#HObject)
     * [.one(events, selector, callback, options)](#HObject+one) ⇒ [<code>HObject</code>](#HObject)
     * [.off(events, callback)](#HObject+off) ⇒ [<code>HObject</code>](#HObject)
-    * [.trigger(event, extraParams)](#HObject+trigger) ⇒ [<code>HObject</code>](#HObject)
-    * [.triggerHandler(event, extraParams)](#HObject+triggerHandler) ⇒ <code>Mixed</code>
+    * [.trigger(event, extraParams, eventOptions)](#HObject+trigger) ⇒ [<code>HObject</code>](#HObject)
+    * [.triggerHandler(event, extraParams, eventOptions)](#HObject+triggerHandler) ⇒ <code>Mixed</code>
 
 <a name="HObject+find"></a>
 
@@ -159,7 +160,18 @@ For each element in the set, get the first element that matches the selector by 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| selector | <code>String</code> | DOM selector |
+| selector | <code>String</code> \| <code>Element</code> | DOM selector or DOM element |
+
+<a name="HObject+contains"></a>
+
+### h().contains(selector) ⇒ [<code>HObject</code>](#HObject)
+Checks if any of the elements in the set contains the selected element.
+
+**Kind**: instance method of [<code>HObject</code>](#HObject)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| selector | <code>String</code> \| <code>Element</code> | DOM selector or DOM element |
 
 <a name="HObject+parents"></a>
 
@@ -708,7 +720,7 @@ Remove an event handler.
 
 <a name="HObject+trigger"></a>
 
-### h().trigger(event, extraParams) ⇒ [<code>HObject</code>](#HObject)
+### h().trigger(event, extraParams, eventOptions) ⇒ [<code>HObject</code>](#HObject)
 Execute all handlers and behaviors attached to the matched elements for the given event type.
 
 **Kind**: instance method of [<code>HObject</code>](#HObject)  
@@ -717,10 +729,11 @@ Execute all handlers and behaviors attached to the matched elements for the give
 | --- | --- | --- |
 | event | <code>String</code> | Event types and optional namespaces. |
 | extraParams | <code>Array.&lt;Mixed&gt;</code> | Additional parameters to pass along to the event handler. |
+| eventOptions | <code>Object</code> | Additional event options for CustomEvent (e.g. for controlling if event bubbles...) |
 
 <a name="HObject+triggerHandler"></a>
 
-### h().triggerHandler(event, extraParams) ⇒ <code>Mixed</code>
+### h().triggerHandler(event, extraParams, eventOptions) ⇒ <code>Mixed</code>
 Execute all handlers attached to an element for an event.
 
 **Kind**: instance method of [<code>HObject</code>](#HObject)  
@@ -729,6 +742,7 @@ Execute all handlers attached to an element for an event.
 | --- | --- | --- |
 | event | <code>String</code> | Event types and optional namespaces. |
 | extraParams | <code>Array.&lt;Mixed&gt;</code> | Additional parameters to pass along to the event handler. |
+| eventOptions | <code>Object</code> | Additional event options for CustomEvent (e.g. for controlling if event bubbles...) |
 
 <a name="HBrowser"></a>
 
@@ -958,8 +972,8 @@ Requests an HTTP endpoint
 | payload | <code>Object</code> |  | Payload to inject (will be converted to query string in case of GET request otherwise, the payload is sent as a JSON body) |
 | headers | <code>Object</code> |  | Headers to inject |
 | extras | <code>Object</code> |  | extra options for the request (same as fetch API options) |
-| [inFormat] | <code>String</code> | <code>&quot;json&quot;</code> | Format of the input request (json|form). |
-| [outFormat] | <code>String</code> | <code>&quot;json&quot;</code> | Format of the output response (json|text|buffer|stream). |
+| [inFormat] | <code>String</code> | <code>&quot;json&quot;</code> | Format of the input request (json, form). |
+| [outFormat] | <code>String</code> | <code>&quot;json&quot;</code> | Format of the output response (json, text, buffer, stream). |
 
 <a name="H.httpGet"></a>
 
@@ -975,8 +989,8 @@ Requests a GET HTTP endpoint
 | payload | <code>Object</code> |  | Payload to inject will be converted to query string |
 | headers | <code>Object</code> |  | Headers to inject |
 | extras | <code>Object</code> |  | extra options for request (same as fetch API options) |
-| [inFormat] | <code>String</code> | <code>&quot;json&quot;</code> | Format of the input request (json|form). |
-| [outFormat] | <code>String</code> | <code>&quot;json&quot;</code> | Format of the output response (json|text|buffer|stream). |
+| [inFormat] | <code>String</code> | <code>&quot;json&quot;</code> | Format of the input request (json, form). |
+| [outFormat] | <code>String</code> | <code>&quot;json&quot;</code> | Format of the output response (json, text, buffer, stream). |
 
 <a name="H.httpPost"></a>
 
@@ -992,8 +1006,8 @@ Requests a POST HTTP endpoint
 | payload | <code>Object</code> |  | Payload to inject |
 | headers | <code>Object</code> |  | Headers to inject |
 | extras | <code>Object</code> |  | extra options for request (same as fetch API options) |
-| [inFormat] | <code>String</code> | <code>&quot;json&quot;</code> | Format of the input request (json|form). |
-| [outFormat] | <code>String</code> | <code>&quot;json&quot;</code> | Format of the output response (json|text|buffer|stream). |
+| [inFormat] | <code>String</code> | <code>&quot;json&quot;</code> | Format of the input request (json, form). |
+| [outFormat] | <code>String</code> | <code>&quot;json&quot;</code> | Format of the output response (json, text, buffer, stream). |
 
 <a name="H.httpPut"></a>
 
@@ -1009,8 +1023,8 @@ Requests a PUT HTTP endpoint
 | payload | <code>Object</code> |  | Payload to inject |
 | headers | <code>Object</code> |  | Headers to inject |
 | extras | <code>Object</code> |  | extra options for request (same as fetch API options) |
-| [inFormat] | <code>String</code> | <code>&quot;json&quot;</code> | Format of the input request (json|form). |
-| [outFormat] | <code>String</code> | <code>&quot;json&quot;</code> | Format of the output response (json|text|buffer|stream). |
+| [inFormat] | <code>String</code> | <code>&quot;json&quot;</code> | Format of the input request (json, form). |
+| [outFormat] | <code>String</code> | <code>&quot;json&quot;</code> | Format of the output response (json, text, buffer, stream). |
 
 <a name="H.httpDelete"></a>
 
@@ -1026,8 +1040,8 @@ Requests a DELETE HTTP endpoint
 | payload | <code>Object</code> |  | Payload to inject |
 | headers | <code>Object</code> |  | Headers to inject |
 | extras | <code>Object</code> |  | extra options for request (same as fetch API options) |
-| [inFormat] | <code>String</code> | <code>&quot;json&quot;</code> | Format of the input request (json|form). |
-| [outFormat] | <code>String</code> | <code>&quot;json&quot;</code> | Format of the output response (json|text|buffer|stream). |
+| [inFormat] | <code>String</code> | <code>&quot;json&quot;</code> | Format of the input request (json, form). |
+| [outFormat] | <code>String</code> | <code>&quot;json&quot;</code> | Format of the output response (json, text, buffer, stream). |
 
 <a name="HServer"></a>
 

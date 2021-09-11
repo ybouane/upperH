@@ -222,8 +222,8 @@ module.exports = (H) => {
 	* @param {Object} payload Payload to inject (will be converted to query string in case of GET request otherwise, the payload is sent as a JSON body)
 	* @param {Object} headers Headers to inject
 	* @param {Object} extras extra options for the request (same as fetch API options)
-	* @param {String} [inFormat="json"] Format of the input request (json|form).
-	* @param {String} [outFormat="json"] Format of the output response (json|text|buffer|stream).
+	* @param {String} [inFormat="json"] Format of the input request (json, form).
+	* @param {String} [outFormat="json"] Format of the output response (json, text, buffer, stream).
 	* @returns {Promise<String>} Response body
 	*/
 	H.httpRequest = async (method='GET', url, payload={}, headers={}, extras={}, inFormat='json', outFormat='json') => {
@@ -297,8 +297,8 @@ module.exports = (H) => {
 	* @param {Object} payload Payload to inject will be converted to query string
 	* @param {Object} headers Headers to inject
 	* @param {Object} extras extra options for request (same as fetch API options)
-	* @param {String} [inFormat="json"] Format of the input request (json|form).
-	* @param {String} [outFormat="json"] Format of the output response (json|text|buffer|stream).
+	* @param {String} [inFormat="json"] Format of the input request (json, form).
+	* @param {String} [outFormat="json"] Format of the output response (json, text, buffer, stream).
 	* @returns {Promise<String>} Response body
 	*/
 	H.httpGet = async function(){return await H.httpRequest('GET', ...arguments);};
@@ -309,8 +309,8 @@ module.exports = (H) => {
 	* @param {Object} payload Payload to inject
 	* @param {Object} headers Headers to inject
 	* @param {Object} extras extra options for request (same as fetch API options)
-	* @param {String} [inFormat="json"] Format of the input request (json|form).
-	* @param {String} [outFormat="json"] Format of the output response (json|text|buffer|stream).
+	* @param {String} [inFormat="json"] Format of the input request (json, form).
+	* @param {String} [outFormat="json"] Format of the output response (json, text, buffer, stream).
 	* @returns {Promise<String>} Response body
 	*/
 	H.httpPost = async function(){return await H.httpRequest('POST', ...arguments);};
@@ -321,8 +321,8 @@ module.exports = (H) => {
 	* @param {Object} payload Payload to inject
 	* @param {Object} headers Headers to inject
 	* @param {Object} extras extra options for request (same as fetch API options)
-	* @param {String} [inFormat="json"] Format of the input request (json|form).
-	* @param {String} [outFormat="json"] Format of the output response (json|text|buffer|stream).
+	* @param {String} [inFormat="json"] Format of the input request (json, form).
+	* @param {String} [outFormat="json"] Format of the output response (json, text, buffer, stream).
 	* @returns {Promise<String>} Response body
 	*/
 	H.httpPut = async function(){return await H.httpRequest('PUT', ...arguments);};
@@ -333,8 +333,8 @@ module.exports = (H) => {
 	* @param {Object} payload Payload to inject
 	* @param {Object} headers Headers to inject
 	* @param {Object} extras extra options for request (same as fetch API options)
-	* @param {String} [inFormat="json"] Format of the input request (json|form).
-	* @param {String} [outFormat="json"] Format of the output response (json|text|buffer|stream).
+	* @param {String} [inFormat="json"] Format of the input request (json, form).
+	* @param {String} [outFormat="json"] Format of the output response (json, text, buffer, stream).
 	* @returns {Promise<String>} Response body
 	*/
 	H.httpDelete = async function(){return await H.httpRequest('DELETE', ...arguments);};

@@ -55,29 +55,23 @@ class HObject extends Array {
 	}
 	/**
 	* For each element in the set, get the first element that matches the selector by testing the element itself and traversing up through its ancestors in the DOM tree.
-	* @param {String} selector DOM selector
+	* @param {String|Element} selector DOM selector or DOM element
 	* @returns {HObject}
 	*/
 	closest(sel) {
 		return this.map(e=>e.closest(sel)).filter(e=>e);
-		/*var nodes = new HObject();
-		var closest = (ele) => {
-			let parent;
-			while (ele) {
-				parent = ele.parentElement;
-				if(parent && parent.matches(sel)) {
-					return parent;
-				}
-				ele = parent;
-			}
-			return;
-		}
-		this.forEach((ele) => {
-			var c = closest(ele);
-			if(c)
-				nodes.push(c);
-		});
-		return nodes;*/
+	}
+
+	/**
+	* Checks if any of the elements in the set contains the selected element.
+	* @param {String|Element} selector DOM selector or DOM element
+	* @returns {HObject}
+	*/
+	contains(sel) {
+		if(typeof sel=='string') {
+			return this.find(sel).length>0;
+		} else
+			return this.findIndex(e=>e.contains(sel))!==-1;
 	}
 	/**
 	* Get the ancestors of each element in the current set of matched elements, optionally filtered by a selector.
@@ -701,9 +695,10 @@ class HObject extends Array {
 	* Execute all handlers and behaviors attached to the matched elements for the given event type.
 	* @param {String} event Event types and optional namespaces.
 	* @param {Array<Mixed>} extraParams Additional parameters to pass along to the event handler.
+	* @param {Object} eventOptions Additional event options for CustomEvent (e.g. for controlling if event bubbles...)
 	* @returns {HObject}
 	*/
-	trigger(event, params) {
+	trigger(event, params, evtOpts={}) {
 		let parts = event.split('.');
 		let eventName = parts.shift() || null;
 		let namespace = parts.join('.') || null;
@@ -713,6 +708,7 @@ class HObject extends Array {
 			detail : params,
 			bubbles: true,
 			cancelable: true,
+			...evtOpts,
 		});
 		for(let ele of this) {
 			if(namespace) {
@@ -730,16 +726,18 @@ class HObject extends Array {
 	* Execute all handlers attached to an element for an event.
 	* @param {String} event Event types and optional namespaces.
 	* @param {Array<Mixed>} extraParams Additional parameters to pass along to the event handler.
+	* @param {Object} eventOptions Additional event options for CustomEvent (e.g. for controlling if event bubbles...)
 	* @returns {Mixed}
 	*/
-	triggerHandler(event, params) {
+	triggerHandler(event, params, evtOpts={}) {
 		let parts = event.split('.');
 		let eventName = parts.shift() || null;
 		let namespace = parts.join('.') || null;
 		if(!eventName)
 			return undefined;
 		var event = new CustomEvent(eventName, {
-			detail : params
+			detail : params,
+			...evtOpts,
 		});
 		var out;
 		this.forEach(ele => {
