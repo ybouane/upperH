@@ -260,6 +260,8 @@ class HObject extends Array {
 				let kHyphen = key.indexOf('--')==0?key:(key.replace(/([a-z])([A-Z])/g, function(matches, l1, l2) {// To hyphen-case
 					return l1+'-'+l2;
 				}).toLowerCase());
+				if(this.length==0)
+					return undefined;
 				return window.getComputedStyle(this[0]).getPropertyValue(kHyphen);
 			}
 			props = {
