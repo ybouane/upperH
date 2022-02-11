@@ -276,11 +276,11 @@ module.exports = (H) => {
 				let response_ = response;
 				try {
 					if(contentType=='application/json')
-					response_ = await response.json();
+						response_ = await response.json();
 				} catch(e) {}
 
 				if(response.status != 200) {
-					throw new H.Error('Error '+response.status+(response.statusText?': '+response.statusText:(response.message?': '+response.message:'')), response.status, response_);
+					throw new H.Error('Error '+response.status+(response_.message?': '+response_.message:(response.statusText?': '+response.statusText:'')), response.status, response_);
 				} else
 					throw new H.Error('A network error occured.', response.status, response_);
 			}

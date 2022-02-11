@@ -11,6 +11,7 @@ gulp.task('default', () => {
 			path		: path.resolve(__dirname, 'dist'),
 			filename	: 'H.min.js',
 			library		: 'H',
+			//hashFunction: "xxhash64"
 		},
 	}))
 	.pipe(rename('H.min.js'))

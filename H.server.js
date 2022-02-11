@@ -306,6 +306,7 @@ H.onKeypress = (cb) => {
 * @param {Number} [post=80] Post to listen to
 * @param {Function|Object} handlers If function, it will run function and use returned Object to select handler. If Object, it will use it directly to select the handler. The handler is selected if it matches the request url. If the handler's key starts with ^, it will be considered as a REGEX.
 * @param {Object} options Extra options. defaultHandler, onError, beforeHandler, pathFlags, afterHandler, autoEnd, maxPostRequestSize,
+* @returns {HTTPServer} The server Object
 * @name httpServer
 */
 H.httpServer = (port=80, handlers, options) => {
@@ -426,4 +427,5 @@ H.httpServer = (port=80, handlers, options) => {
 		}
 	});
 	server.listen(port);
+	return server;
 };
